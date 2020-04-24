@@ -1,19 +1,20 @@
 <template>
     <div style="position: relative; width: 300px">
-        <product-form :products="products" :productAttr="product"></product-form>
+        <product-form :productAttr="product"></product-form>
         <product-row v-for="product in products"
                      :key="product.id"
                      :product="product"
                      :editProduct="editProduct"
                      :deleteProduct="deleteProduct"
-                     :products="products"></product-row>
-        </div>
+        ></product-row>
+    </div>
 </template>
 
 <script>
-
+    import {mapGetters} from 'vuex'
     import ProductRow from "./ProductRow.vue";
     import ProductForm from "./ProductForm.vue";
+    import productApi from "../api/product";
 
     export default {
         name: "ProductList",
@@ -21,7 +22,7 @@
             ProductRow,
             ProductForm
         },
-        props: ['products'],
+        computed: mapGetters(['sortedProducts']),
         data() {
             return {
                 product: null
@@ -31,11 +32,11 @@
             editProduct(product) {
                 this.product = product;
             },
-            deleteProduct(product){
-                this.$resource('/product{/id}').remove({id: product.id}).then(result => {
-                    if(result.ok){
+            deleteProduct(product) {
+                productApi.remove(product.id).then(result => {
+                    if (result.ok) {
                         this.products.splice(this.products.indexOf(this.product), 1)
-                        location.href=location.href;
+                        location.href = location.href;
                     }
                 })
             }

@@ -1,20 +1,16 @@
 <template>
-        <product-list :products="products"/>
+    <product-list/>
 </template>
 
 <script>
-
+    import {mapState, mapMutations} from 'vuex'
     import ProductList from "../components/ProductList.vue";
 
     export default {
         components: {
             ProductList
         },
-        data() {
-            return {
-                products: frontendData.products
-            }
-        },
+
     }
 </script>
 

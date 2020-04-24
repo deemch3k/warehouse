@@ -10,15 +10,7 @@
 
 <script>
 
-    function getIndex(list, id) {
-        for (var i = 0; i < list.length; i++) {
-            if (list[i].id === id) {
-                return i
-            }
-        }
-
-        return -1
-    }
+    import productApi from "../api/product";
 
     export default {
         name: "ProductForm",
@@ -45,26 +37,25 @@
             save() {
                 const product = {name: this.name, qty: this.qty, price: this.price, description: this.description};
                 if (this.id) {
-                    this.$resource('/product{/id}').update({id: this.id}, product).then(result => {
+                   productApi.update(product).then(result => {
                         result.json().then(data => {
-                            const index = getIndex(this.products, data.id);
+                            const index = this.products.findIndex(item => item.id === data.id)
                             this.products.splice(index, 1, data);
-                            this.name = '';
-                            this.price = '';
-                            this.qty = '';
-                            this.description = '';
-                            this.id = '';
                         })
                     })
                 } else {
-                    this.$resource('/product{/id}').save({}, product).then(result => {
+                    productApi.add(product).then(result => {
                         result.json().then(data => {
                             //data это то что вернул сервер(продукт с айди), нужно установить айдишник на фронте в коллекцию продукты
                             this.products.push(data);
-                            this.name = '';
                         })
                     })
                 }
+                this.name = '';
+                this.price = '';
+                this.qty = '';
+                this.description = '';
+                this.id = '';
             }
         }
     }
