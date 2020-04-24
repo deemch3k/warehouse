@@ -40,10 +40,10 @@ export default new Vuex.Store({
         },
     },
     actions: {
-        async addProductAction({commit}, product) {
+        async addProductAction({commit, state}, product) {
             const result = await productApi.add(product)
             const data = await result.json()
-            const index = this.products.findIndex(item => item.id === product.id)
+            const index = state.products.findIndex(item => item.id === data.id)
 
             if(index > -1){
                 commit('updateProductMutation', data)

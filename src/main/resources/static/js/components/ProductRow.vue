@@ -9,19 +9,22 @@
         <input type="button" value="Edit" @click="edit">
         <input type="button" value="X" @click="del">
 
-        </div>
+    </div>
 </template>
 
 <script>
+    import {mapActions} from 'vuex'
+
     export default {
         name: "ProductRow",
-        props: ['product', 'editProduct','deleteProduct', 'products'],
+        props: ['product', 'editProduct'],
         methods: {
+            ...mapActions(['removeProductAction']),
             edit() {
                 this.editProduct(this.product);
             },
             del() {
-                this.deleteProduct(this.product);
+                this.removeProductAction(this.product);
             }
         }
     }

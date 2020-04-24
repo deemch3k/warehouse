@@ -10,11 +10,11 @@
 
 <script>
 
-    import productApi from "../api/product";
+    import {mapActions} from 'vuex'
 
     export default {
         name: "ProductForm",
-        props: ['products', 'productAttr'],
+        props: ['productAttr'],
         data: function () {
             return {
                 name: '',
@@ -34,22 +34,14 @@
             }
         },
         methods: {
+            ...mapActions(['addProductAction', 'updateProductAction']),
             save() {
                 const product = {name: this.name, qty: this.qty, price: this.price, description: this.description};
+
                 if (this.id) {
-                   productApi.update(product).then(result => {
-                        result.json().then(data => {
-                            const index = this.products.findIndex(item => item.id === data.id)
-                            this.products.splice(index, 1, data);
-                        })
-                    })
+                    this.updateProductAction(product)
                 } else {
-                    productApi.add(product).then(result => {
-                        result.json().then(data => {
-                            //data это то что вернул сервер(продукт с айди), нужно установить айдишник на фронте в коллекцию продукты
-                            this.products.push(data);
-                        })
-                    })
+                    this.addProductAction(product)
                 }
                 this.name = '';
                 this.price = '';
