@@ -1,5 +1,8 @@
 <template>
-    <product-list/>
+    <div>
+        <div>{{this.$store.state.profile.username}}&nbsp;<a href="/logout">Выйти</a></div>
+        <product-list/>
+    </div>
 </template>
 
 <script>
