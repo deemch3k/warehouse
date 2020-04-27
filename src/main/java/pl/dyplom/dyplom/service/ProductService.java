@@ -5,7 +5,9 @@ import org.springframework.stereotype.Service;
 import pl.dyplom.dyplom.domain.Product;
 import pl.dyplom.dyplom.repo.ProductRepo;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class ProductService {
@@ -28,7 +30,7 @@ public class ProductService {
     public Product update(Product productFromDb, Product product) {
         productFromDb.setDescription(product.getDescription());
         productFromDb.setPrice(product.getPrice());
-        productFromDb.setQty(product.getQty());
+        productFromDb.setTotalAmount(product.getTotalAmount());
         productFromDb.setName(product.getName());
         productRepo.save(productFromDb);
         return productFromDb;
@@ -36,5 +38,9 @@ public class ProductService {
 
     public List<Product> getList() {
         return productRepo.findAll();
+    }
+
+    public Set<Product> getSet(){
+        return new HashSet<>(productRepo.findAll());
     }
 }

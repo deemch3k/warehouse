@@ -1,6 +1,7 @@
 import Vue from "vue"
 import Vuex from "vuex"
 import productApi from "../api/product"
+import orderApi from '../api/order'
 
 Vue.use(Vuex)
 
@@ -8,7 +9,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
         products: frontendData.products,
-        profile: frontendData.profile
+        profile: frontendData.profile,
+        orders: frontendData.orders
     },
     getters: {
         sortedProducts: state => state.products.sort((a, b) => -(a.id - b.id))
@@ -39,6 +41,27 @@ export default new Vuex.Store({
                 ]
             }
         },
+        addOrderMutation(state, order) {
+            state.orders = [
+                ...state.orders,
+                order
+            ]
+        },
+        updateOrderMutation(state, order) {
+            const index = state.orders.findIndex(item => item.id === order.id)
+            state.orders = [
+                ...state.orders.slice(0, index),
+                ...order,
+                ...state.orders.slice(index + 1)
+            ]
+        },
+        removeOrderMutation(state, order) {
+            const index = state.orders.findIndex(item => item.id === order.id)
+            state.orders = [
+                ...state.orders.slice(0, index),
+                ...state.orders.slice(index + 1)
+            ]
+        },
     },
     actions: {
         async addProductAction({commit, state}, product) {
@@ -46,7 +69,7 @@ export default new Vuex.Store({
             const data = await result.json()
             const index = state.products.findIndex(item => item.id === data.id)
 
-            if(index > -1){
+            if (index > -1) {
                 commit('updateProductMutation', data)
             } else {
                 commit('addProductMutation', data)
@@ -65,5 +88,29 @@ export default new Vuex.Store({
                 commit('removeProductMutation', product)
             }
         },
+        async addOrderAction({commit, state}, orderDto) {
+            const result = await orderApi.add(orderDto)
+            const data = await result.json()
+            const index = state.orders.findIndex(item => item.id === orderDto.id)
+
+            if(index > -1){
+                commit('updateOrderMutation', data)
+            } else {
+                commit('addOrderMutation', data)
+            }
+
+        },
+        async updateOrderAction({commit}, order) {
+            const result = orderApi.update(order)
+            const data = result.json()
+            commit('updateOrderMutation', data)
+        },
+        async removeOrderAction({commit}, order) {
+            const result = orderApi.remove(order.id)
+            if (result.ok) {
+                commit('removeOrderMutation', order)
+            }
+        }
+
     }
 })
