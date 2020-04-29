@@ -75,7 +75,7 @@
 
             },
             createOrder(){
-                console.log(this.selectedProducts)
+
                 this.addOrderAction(this.selectedProducts)
                 this.selectedProducts = []
 

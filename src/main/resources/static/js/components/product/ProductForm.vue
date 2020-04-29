@@ -2,7 +2,7 @@
     <div>
         <input type="text" placeholder="name" v-model="name"/>
         <input type="text" placeholder="price" v-model="price"/>
-        <input type="text" placeholder="qty" v-model="qty"/>
+        <input type="text" placeholder="totalAmount" v-model="totalAmount"/>
         <textarea placeholder="description" v-model="description"/>
         <input type="button" value="Save" @click="save">
     </div>
@@ -19,7 +19,7 @@
             return {
                 name: '',
                 price: '',
-                qty: '',
+                totalAmount: '',
                 id: '',
                 description: ''
             }
@@ -27,7 +27,7 @@
         watch: {
             productAttr(newVal, oldVal) {
                 this.name = newVal.name;
-                this.qty = newVal.qty;
+                this.totalAmount = newVal.totalAmount;
                 this.price = newVal.price;
                 this.id = newVal.id;
                 this.description = newVal.description;
@@ -36,7 +36,7 @@
         methods: {
             ...mapActions(['addProductAction', 'updateProductAction']),
             save() {
-                const product = {name: this.name, qty: this.qty, price: this.price, description: this.description};
+                const product = {name: this.name, totalAmount: this.totalAmount, price: this.price, description: this.description};
 
                 if (this.id) {
                     this.updateProductAction(product)
@@ -45,7 +45,7 @@
                 }
                 this.name = '';
                 this.price = '';
-                this.qty = '';
+                this.totalAmount = '';
                 this.description = '';
                 this.id = '';
             }

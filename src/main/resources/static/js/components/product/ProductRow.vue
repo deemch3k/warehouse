@@ -4,7 +4,7 @@
         <i>ID: {{ product.id }}</i>
         <i>NAME: {{ product.name }}</i>
         <i>PRICE: {{ product.price }}</i>
-        <i>Quantity: {{ product.qty }}</i>
+        <i>Total Amount: {{ product.totalAmount }}</i>
         <i>Description: {{ product.description }}</i>
         <input type="button" value="Edit" @click="edit">
         <input type="button" value="X" @click="del">

@@ -29,7 +29,10 @@ public class OrderController {
 
     @GetMapping
     public List<Order> getList(){
-        return orderService.getList();
+
+        List<Order> list = orderService.getList();
+
+        return list;
     }
 
     @PostMapping

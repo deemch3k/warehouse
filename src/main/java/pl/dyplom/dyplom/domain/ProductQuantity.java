@@ -1,6 +1,8 @@
 package pl.dyplom.dyplom.domain;
 
 import lombok.Data;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -9,15 +11,13 @@ import javax.persistence.*;
 @Table
 public class ProductQuantity {
 
-    //todo разобраться с зависимостями
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Long qty;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
+    @OneToOne
+    @JoinColumn(name = "fk_product")
     private Product product;
 
 }

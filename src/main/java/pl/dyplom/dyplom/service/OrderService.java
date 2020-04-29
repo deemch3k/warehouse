@@ -25,7 +25,7 @@ public class OrderService {
 
 
     public Order update(Order orderFromDB, Order order) {
-        orderFromDB.setProducts(order.getProducts());
+        orderFromDB.setProductQuantities(order.getProductQuantities());
         return orderRepo.save(orderFromDB);
     }
 
@@ -39,8 +39,11 @@ public class OrderService {
 
     public Order createOrder(Set<ProductQuantity> productQuantities) {
 
+
         Order order = new Order();
-        order.setProducts(productQuantities);
+
+        order.setProductQuantities(productQuantities);
+
         return orderRepo.save(order);
     }
 }

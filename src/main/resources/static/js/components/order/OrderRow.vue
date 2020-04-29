@@ -3,7 +3,7 @@
     <h3>Order</h3>
     <strong>ID: {{ order.id }}</strong>
     <order-item
-            v-for="productQuantity in order.products"
+            v-for="productQuantity in order.productQuantities"
             :key="productQuantity.id"
             :productQuantity="productQuantity"
     ></order-item>
