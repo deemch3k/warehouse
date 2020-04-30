@@ -5,7 +5,6 @@
         <order-row v-for="order in this.$store.state.orders"
                      :key="order.id"
                      :order="order"
-                     :editOrder="editOrder"
         ></order-row>
     </div>
 </template>
@@ -25,12 +24,6 @@
                 order: null
             }
         },
-        methods: {
-            editOrder(order) {
-                //todo edit order
-            }
-        }
-
     }
 </script>
 

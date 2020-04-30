@@ -1,13 +1,17 @@
 <template>
-    <div style="position: relative; width: 300px">
-        <router-link to="/orders">To orders</router-link>
-        <product-form :productAttr="product"></product-form>
-        <product-row v-for="product in sortedProducts"
-                     :key="product.id"
-                     :product="product"
-                     :editProduct="editProduct"
-        ></product-row>
-    </div>
+    <v-container>
+        <v-layout align-content-space-around justify-start column>
+            <div style="position: relative; width: 300px">
+                <router-link to="/orders">To orders</router-link>
+                <product-form :productAttr="product"></product-form>
+                <product-row v-for="product in sortedProducts"
+                             :key="product.id"
+                             :product="product"
+                             :editProduct="editProduct"
+                ></product-row>
+            </div>
+        </v-layout>
+    </v-container>
 </template>
 
 <script>
@@ -31,7 +35,7 @@
             editProduct(product) {
                 this.product = product;
             }
-        }
+        },
     }
 </script>
 

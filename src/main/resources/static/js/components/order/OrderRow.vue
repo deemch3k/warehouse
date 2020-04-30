@@ -7,18 +7,17 @@
             :key="productQuantity.id"
             :productQuantity="productQuantity"
     ></order-item>
-        <input type="button" value="Edit" @click="edit">
         <input type="button" value="X" @click="del">
     </div>
 </template>
 
 <script>
-    import {mapGetters} from "vuex";
+    import {mapGetters, mapActions} from "vuex";
     import OrderItem from "./OrderItem.vue";
 
     export default {
         name: "OrderRow",
-        props: ['order', "editOrder"],
+        props: ['order'],
         components: {
             OrderItem
         },
@@ -28,11 +27,9 @@
             }
         },
         methods: {
-            edit() {
-                this.editOrder(this.order);
-            },
+            ...mapActions(['removeOrderAction']),
             del(){
-                //todo remove from store.
+                this.removeOrderAction(this.order)
             }
         },
         computed: mapGetters(['sortedProducts']),

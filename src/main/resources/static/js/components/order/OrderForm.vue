@@ -73,10 +73,8 @@
 
             },
             createOrder(){
-
                 this.addOrderAction(this.selectedProducts)
                 this.selectedProducts = []
-
             }
         }
     }

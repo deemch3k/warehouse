@@ -57,10 +57,13 @@ export default new Vuex.Store({
         },
         removeOrderMutation(state, order) {
             const index = state.orders.findIndex(item => item.id === order.id)
-            state.orders = [
-                ...state.orders.slice(0, index),
-                ...state.orders.slice(index + 1)
-            ]
+            if (index > -1) {
+                state.orders = [
+                    ...state.orders.slice(0, index),
+                    ...state.orders.slice(index + 1)
+                ]
+            }
+            console.log(state.orders)
         },
     },
     actions: {
@@ -93,7 +96,7 @@ export default new Vuex.Store({
             const data = await result.json()
             const index = state.orders.findIndex(item => item.id === orderedProducts.id)
 
-            if(index > -1){
+            if (index > -1) {
                 commit('updateOrderMutation', data)
             } else {
                 commit('addOrderMutation', data)
@@ -101,12 +104,12 @@ export default new Vuex.Store({
 
         },
         async updateOrderAction({commit}, order) {
-            const result = orderApi.update(order)
-            const data = result.json()
+            const result = await orderApi.update(order)
+            const data = await result.json()
             commit('updateOrderMutation', data)
         },
         async removeOrderAction({commit}, order) {
-            const result = orderApi.remove(order.id)
+            const result = await orderApi.remove(order.id)
             if (result.ok) {
                 commit('removeOrderMutation', order)
             }
