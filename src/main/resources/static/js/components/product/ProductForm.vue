@@ -36,7 +36,7 @@
         methods: {
             ...mapActions(['addProductAction', 'updateProductAction']),
             save() {
-                const product = {name: this.name, totalAmount: this.totalAmount, price: this.price, description: this.description};
+                const product = {id: this.id,  name: this.name, description: this.description, totalAmount: this.totalAmount, price: this.price};
 
                 if (this.id) {
                     this.updateProductAction(product)

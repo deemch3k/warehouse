@@ -7,6 +7,7 @@ import pl.dyplom.dyplom.domain.Product;
 import pl.dyplom.dyplom.domain.ProductQuantity;
 import pl.dyplom.dyplom.service.OrderService;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Set;
 
@@ -29,10 +30,7 @@ public class OrderController {
 
     @GetMapping
     public List<Order> getList(){
-
-        List<Order> list = orderService.getList();
-
-        return list;
+        return orderService.getList();
     }
 
     @PostMapping

@@ -1,5 +1,6 @@
 package pl.dyplom.dyplom.service;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.dyplom.dyplom.domain.Product;
@@ -20,7 +21,7 @@ public class ProductService {
     }
 
     public Product add(Product product) {
-       return productRepo.save(product);
+        return productRepo.save(product);
     }
 
     public void delete(Product product) {
@@ -28,19 +29,15 @@ public class ProductService {
     }
 
     public Product update(Product productFromDb, Product product) {
-        productFromDb.setDescription(product.getDescription());
-        productFromDb.setPrice(product.getPrice());
-        productFromDb.setTotalAmount(product.getTotalAmount());
-        productFromDb.setName(product.getName());
-        productRepo.save(productFromDb);
-        return productFromDb;
+        BeanUtils.copyProperties(product, productFromDb);
+        return productRepo.save(productFromDb);
     }
 
     public List<Product> getList() {
         return productRepo.findAll();
     }
 
-    public Set<Product> getSet(){
+    public Set<Product> getSet() {
         return new HashSet<>(productRepo.findAll());
     }
 }

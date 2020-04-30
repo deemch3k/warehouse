@@ -11,7 +11,7 @@
             <h2>Selected Products</h2>
             <select v-if="getSelectedProducts" multiple >
                 <option v-for="orderDto in getSelectedProducts()" @click="deleteProduct(orderDto.product)">
-                    {{orderDto.qty}} : {{orderDto.product.name}}
+                    {{orderDto.qty}} : {{orderDto.orderedProduct.name}}
                 </option>
             </select>
         </label>
@@ -41,22 +41,20 @@
 
             },
             select(product) {
-                const index = this.selectedProducts.findIndex(item => item.product.id === product.id)
+                const index = this.selectedProducts.findIndex(item => item.orderedProduct.id === product.id)
 
                 const orderDto = {
-                    qty:1
+                    qty:1,
+                    orderedProduct: null
                 }
 
                 if(index > -1){
-                    this.selectedProducts[index].product = product
+                    this.selectedProducts[index].orderedProduct = product
                     this.selectedProducts[index].qty += 1
-                    console.log(orderDto.qty)
-                    console.log(orderDto.product)
                 } else {
-                    orderDto.product = product
+                    orderDto.orderedProduct = product
                     this.selectedProducts.push(orderDto)
                     orderDto.qty = 1
-                    console.log(orderDto)
                 }
 
             },
@@ -64,7 +62,7 @@
                 return this.selectedProducts
             },
             deleteProduct(product){
-                const index = this.selectedProducts.findIndex(t => t.product.id === product.id)
+                const index = this.selectedProducts.findIndex(t => t.orderedProduct.id === product.id)
                 if (index > -1) {
                     if(this.selectedProducts[index].qty > 1 ){
                         this.selectedProducts[index].qty -=1

@@ -1,17 +1,22 @@
 <template>
     <div>
         <div >
-            {{productQuantity.product.id}}
+            {{productQuantity.id}}
             {{productQuantity.qty}}
-            {{productQuantity.product.name}}
+            {{productQuantity.orderedProduct.name}}
         </div>
     </div>
 </template>
 
 <script>
+    import product from "../../api/product";
+
     export default {
         name: "OrderItem",
-        props: ["productQuantity"]
+        props: ["productQuantity"],
+        methods: {
+
+        }
     }
 </script>
 

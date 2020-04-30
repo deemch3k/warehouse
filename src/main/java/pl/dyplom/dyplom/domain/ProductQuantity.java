@@ -1,8 +1,7 @@
 package pl.dyplom.dyplom.domain;
 
 import lombok.Data;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import org.aspectj.weaver.ast.Or;
 
 import javax.persistence.*;
 
@@ -16,8 +15,9 @@ public class ProductQuantity {
     private Long id;
     private Long qty;
 
-    @OneToOne
-    @JoinColumn(name = "fk_product")
-    private Product product;
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "ordered_product_id")
+    private OrderedProduct orderedProduct;
+
 
 }
