@@ -1,5 +1,6 @@
 <template>
     <div style="position: relative; width: 300px">
+        <router-link to="/orders">To orders</router-link>
         <product-form :productAttr="product"></product-form>
         <product-row v-for="product in sortedProducts"
                      :key="product.id"

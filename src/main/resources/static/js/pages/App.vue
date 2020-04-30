@@ -1,8 +1,7 @@
 <template>
     <div>
         <div>{{this.$store.state.profile.username}}&nbsp;<a href="/logout">Выйти</a></div>
-        <product-list/>
-        <order-list/>
+        <router-view></router-view>
     </div>
 </template>
 
