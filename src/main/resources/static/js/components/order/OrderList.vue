@@ -1,7 +1,7 @@
 <template>
     <div style="position: relative; width: 300px">
-        <router-link to="/products">to products</router-link>
         <order-form :order-attr="order"></order-form>
+
         <order-row v-for="order in this.$store.state.orders"
                      :key="order.id"
                      :order="order"

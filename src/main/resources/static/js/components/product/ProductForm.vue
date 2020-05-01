@@ -1,11 +1,31 @@
 <template>
-    <div>
-        <input type="text" placeholder="name" v-model="name"/>
-        <input type="text" placeholder="price" v-model="price"/>
-        <input type="text" placeholder="totalAmount" v-model="totalAmount"/>
-        <textarea placeholder="description" v-model="description"/>
-        <input type="button" value="Save" @click="save">
-    </div>
+    <form>
+        <v-text-field
+                v-model="name"
+                :counter="50"
+                label="Name"
+                required
+        ></v-text-field>
+        <v-text-field
+                v-model="price"
+                label="price"
+                required
+        ></v-text-field>
+        <v-text-field
+                v-model="totalAmount"
+                label="Total Amount"
+                required
+        ></v-text-field>
+        <v-textarea
+                v-model="description"
+                :counter="255"
+                label="Descrption"
+                required
+        ></v-textarea>
+
+        <v-btn class="mr-4" @click="save">Save</v-btn>
+        <v-btn @click="clear" >clear</v-btn>
+    </form>
 </template>
 
 <script>
@@ -43,13 +63,16 @@
                 } else {
                     this.addProductAction(product)
                 }
-                this.name = '';
-                this.price = '';
-                this.totalAmount = '';
-                this.description = '';
+                this.clear()
                 this.id = '';
-            }
-        }
+            },
+            clear () {
+                this.name = ''
+                this.price = ''
+                this.description = ''
+                this.totalAmount = ''
+            },
+        },
     }
 </script>
 

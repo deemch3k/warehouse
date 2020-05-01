@@ -1,15 +1,16 @@
 <template>
     <v-container>
-        <v-layout align-content-space-around justify-start column>
-            <div style="position: relative; width: 300px">
-                <router-link to="/orders">To orders</router-link>
-                <product-form :productAttr="product"></product-form>
-                <product-row v-for="product in sortedProducts"
-                             :key="product.id"
-                             :product="product"
-                             :editProduct="editProduct"
-                ></product-row>
-            </div>
+        <product-form :productAttr="product"></product-form>
+        <v-divider class="ma-6"></v-divider>
+        <div class="search-wrapper">
+            <v-text-field label="Search" v-model="search"></v-text-field>
+        </div>
+        <v-layout align-content-space-around justify-start row>
+            <product-row v-for="product in filteredList"
+                         :key="product.id"
+                         :product="product"
+                         :editProduct="editProduct"
+            ></product-row>
         </v-layout>
     </v-container>
 </template>
@@ -25,10 +26,18 @@
             ProductRow,
             ProductForm
         },
-        computed: mapGetters(['sortedProducts']),
+        computed: {
+            ...mapGetters(['sortedProducts']),
+            filteredList() {
+                return this.sortedProducts.filter(prod => {
+                    return prod.name.toLowerCase().includes(this.search.toLowerCase())
+                })
+            },
+        },
         data() {
             return {
-                product: null
+                product: null,
+                search: ''
             }
         },
         methods: {
