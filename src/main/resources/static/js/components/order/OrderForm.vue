@@ -10,7 +10,7 @@
                             color="#B2EBF2"
                             flat
                             tile
-                            v-for="product in sortedProducts" @click="select(product)"
+                            v-for="product in list" @click="select(product)"
                             :key="product.id"
                     >
                         <v-list-item three-line>
@@ -52,7 +52,6 @@
         </v-layout>
 
 
-
         <!--        <label>-->
         <!--            <h2>Products</h2>-->
         <!--            <select multiple>-->
@@ -80,9 +79,14 @@
         data() {
             return {
                 selectedProducts: [],
+                loading: false,
+                list: null
             }
         },
         computed: mapGetters(['sortedProducts']),
+        beforeMount() {
+            this.list = this.sortedProducts
+        },
         methods: {
             ...mapActions(['addOrderAction']),
             save() {
@@ -97,32 +101,39 @@
                 }
 
                 if (index > -1) {
-                    this.selectedProducts[index].orderedProduct = product
-                    this.selectedProducts[index].qty += 1
+                    if (product.totalAmount > 0) {
+                        this.selectedProducts[index].qty += 1
+                        product.totalAmount -= 1
+                    }
                 } else {
-                    orderDto.orderedProduct = product
-                    this.selectedProducts.push(orderDto)
-                    orderDto.qty = 1
+                    if (product.totalAmount > 0) {
+                        orderDto.orderedProduct = product
+                        this.selectedProducts.push(orderDto)
+                        product.totalAmount -= 1
+                    }
                 }
-
             },
             getSelectedProducts() {
                 return this.selectedProducts
             },
             deleteProduct(product) {
-                const index = this.selectedProducts.findIndex(t => t.orderedProduct.id === product.id)
-                if (index > -1) {
-                    if (this.selectedProducts[index].qty > 1) {
-                        this.selectedProducts[index].qty -= 1
-                    } else if (this.selectedProducts[index].qty <= 1) {
-                        this.selectedProducts.splice(index, 1)
+                const indexSelected = this.selectedProducts.findIndex(t => t.orderedProduct.id === product.id)
+                const indexList = this.list.findIndex(t => t.id === product.id)
+
+                if (indexSelected > -1) {
+                    if (this.selectedProducts[indexSelected].qty > 1) {
+                        this.selectedProducts[indexSelected].qty -= 1
+                    } else if (this.selectedProducts[indexSelected].qty <= 1) {
+                        this.selectedProducts.splice(indexSelected, 1)
                     }
+                    this.list[indexList].totalAmount += 1
                 }
 
             },
             createOrder() {
                 this.addOrderAction(this.selectedProducts)
                 this.selectedProducts = []
+                this.$router.push("/orders")
             }
         }
     }

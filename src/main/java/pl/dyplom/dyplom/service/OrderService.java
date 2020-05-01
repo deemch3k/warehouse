@@ -3,11 +3,9 @@ package pl.dyplom.dyplom.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.dyplom.dyplom.domain.Order;
-import pl.dyplom.dyplom.domain.OrderedProduct;
 import pl.dyplom.dyplom.domain.ProductQuantity;
 import pl.dyplom.dyplom.repo.OrderRepo;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Set;
 
@@ -15,10 +13,12 @@ import java.util.Set;
 public class OrderService {
 
     private final OrderRepo orderRepo;
+    private final ProductService productService;
 
     @Autowired
-    public OrderService(OrderRepo orderRepo) {
+    public OrderService(OrderRepo orderRepo, ProductService productService) {
         this.orderRepo = orderRepo;
+        this.productService = productService;
     }
 
     public List<Order> getList(){
@@ -43,6 +43,7 @@ public class OrderService {
         Order order = new Order();
         productQuantities.stream().forEach(pr -> pr.getOrderedProduct().setId(null));
         order.setProductQuantities(productQuantities);
+        productService.updateProducts(productQuantities);
         return orderRepo.save(order);
     }
 }
