@@ -1,14 +1,28 @@
 <template>
-    <div>
-    <h3>Order</h3>
-    <strong>ID: {{ order.id }}</strong>
-    <order-item
-            v-for="productQuantity in order.productQuantities"
-            :key="productQuantity.id"
-            :productQuantity="productQuantity"
-    ></order-item>
-        <input type="button" value="X" @click="del">
-    </div>
+    <v-container fluid>
+        <v-layout column>
+            <v-flex xs4>
+                <v-card
+                        class="d-flex flex-row mb-6 pa-2 ma-4"
+                        max-width="344"
+                        outlined
+                >
+                    <v-list-item three-line>
+                        <v-layout row>
+                            <v-flex>Order ID: {{order.id}}</v-flex>
+                            <order-item
+                                    v-for="productQuantity in order.productQuantities"
+                                    :key="productQuantity.id"
+                                    :productQuantity="productQuantity"
+                            ></order-item>
+                            <v-btn small @click="del">Delete order</v-btn>
+                        </v-layout>
+                    </v-list-item>
+                </v-card>
+            </v-flex>
+        </v-layout>
+    </v-container>
+
 </template>
 
 <script>
@@ -21,14 +35,14 @@
         components: {
             OrderItem
         },
-        data(){
+        data() {
             return {
                 product: null
             }
         },
         methods: {
             ...mapActions(['removeOrderAction']),
-            del(){
+            del() {
                 this.removeOrderAction(this.order)
             }
         },

@@ -1,5 +1,5 @@
 <template>
-    <div style="position: relative; width: 300px">
+    <div>
         <order-form :order-attr="order"></order-form>
 
         <order-row v-for="order in this.$store.state.orders"

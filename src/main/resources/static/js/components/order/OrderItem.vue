@@ -1,11 +1,9 @@
 <template>
-    <div>
-        <div >
-            {{productQuantity.id}}
-            {{productQuantity.qty}}
-            {{productQuantity.orderedProduct.name}}
-        </div>
-    </div>
+    <v-container>
+        <v-list-item-content>
+            <v-list-item class="headline mb-1">{{ productQuantity.qty }} X {{productQuantity.orderedProduct.name}}</v-list-item>
+        </v-list-item-content>
+    </v-container>
 </template>
 
 <script>
