@@ -2,9 +2,11 @@ package pl.dyplom.dyplom.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import pl.dyplom.dyplom.domain.ClientInfo;
 import pl.dyplom.dyplom.domain.Order;
 import pl.dyplom.dyplom.domain.Product;
 import pl.dyplom.dyplom.domain.ProductQuantity;
+import pl.dyplom.dyplom.dto.OrderDto;
 import pl.dyplom.dyplom.service.OrderService;
 
 import javax.transaction.Transactional;
@@ -34,8 +36,8 @@ public class OrderController {
     }
 
     @PostMapping
-    public Order create(@RequestBody Set<ProductQuantity> productQuantities){
-        return orderService.createOrder(productQuantities);
+    public Order create(@RequestBody OrderDto orderDto){
+        return orderService.createOrder(orderDto);
     }
 
     @PutMapping("{id}")

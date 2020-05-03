@@ -15,6 +15,9 @@
                                     :key="productQuantity.id"
                                     :productQuantity="productQuantity"
                             ></order-item>
+                            <v-list-item-subtitle>Name: {{order.clientInfo.name}} {{order.clientInfo.surname}}</v-list-item-subtitle>
+                            <v-list-item-subtitle>Address: {{order.clientInfo.address}} {{order.clientInfo.postcode}}</v-list-item-subtitle>
+                            <v-list-item-subtitle>Number: {{order.clientInfo.number}}</v-list-item-subtitle>
                             <v-btn small @click="del">Delete order</v-btn>
                         </v-layout>
                     </v-list-item>

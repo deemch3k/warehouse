@@ -17,4 +17,8 @@ public class Order {
     @OneToMany(cascade =  CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<ProductQuantity> productQuantities = new HashSet<>();
 
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn(name = "client_info_id")
+    private ClientInfo clientInfo;
+
 }

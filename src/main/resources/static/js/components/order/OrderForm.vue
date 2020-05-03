@@ -2,9 +2,9 @@
     <v-container class="my-5">
         <v-btn large right color="primary" class="float-right ml-10 pa-2" @click="createOrder">Create order</v-btn>
         <v-layout row align-center wrap justify-center>
-            <v-flex xs6 align-self-start>
+            <v-flex xs4 align-self-start>
                 <v-btn block top class="primary pa-2 ma-5">Products</v-btn>
-                <v-flex xs12>
+                <v-flex>
                     <v-card
                             class="d-flex flex-row mb-6 pa-2 ma-4"
                             color="#B2EBF2"
@@ -24,9 +24,9 @@
                     </v-card>
                 </v-flex>
             </v-flex>
-            <v-flex xs6 align-self-start>
+            <v-flex xs4 align-self-start>
                 <v-btn block top class="primary pa-2 ma-5">Selected Products</v-btn>
-                <v-flex xs12>
+                <v-flex>
                     <v-card
                             class="d-flex flex-row mb-6 pa-2 ma-4"
                             color="#B2EBF2"
@@ -44,43 +44,48 @@
                             </v-list-item-content>
                         </v-list-item>
                         <v-card-actions>
-                            <v-btn text @click="deleteProduct(orderDto.orderedProduct)">-</v-btn>
+                            <v-btn class="font-weight-bold" text @click="deleteProduct(orderDto.orderedProduct)">undo
+                            </v-btn>
                         </v-card-actions>
                     </v-card>
                 </v-flex>
             </v-flex>
+            <v-flex xs4 align-self-start>
+                <v-btn v-if="!clientInfo" block top class="primary pa-2 ma-5">Client Info Form</v-btn>
+                <v-flex>
+                    <client-info-form
+                            v-if="!clientInfo"
+                            @clientInfo="setClientInfo"
+                    >
+                    </client-info-form>
+                    <v-alert
+                            :value="clientInfo != null"
+                            class="ma-4"
+                            dense
+                            text
+                            type="success"
+                    >
+                        Client Info has been added <strong>successfully</strong>.
+                    </v-alert>
+                </v-flex>
+            </v-flex>
         </v-layout>
-
-
-        <!--        <label>-->
-        <!--            <h2>Products</h2>-->
-        <!--            <select multiple>-->
-        <!--                <option v-for="product in sortedProducts" @click="select(product)">-->
-        <!--                    {{product.name}}-->
-        <!--                </option>-->
-        <!--            </select>-->
-
-        <!--            <h2>Selected Products</h2>-->
-        <!--            <select v-if="getSelectedProducts" multiple>-->
-        <!--                <option v-for="orderDto in getSelectedProducts()" @click="deleteProduct(orderDto.product)">-->
-        <!--                    {{orderDto.qty}} : {{orderDto.orderedProduct.name}}-->
-        <!--                </option>-->
-        <!--            </select>-->
-        <!--        </label>-->
-
     </v-container>
 </template>
 
 <script>
     import {mapGetters, mapActions} from "vuex";
+    import ClientInfoForm from "../clientInfo/ClientInfoForm.vue";
 
     export default {
         name: "OrderForm",
+        components: {ClientInfoForm},
         data() {
             return {
                 selectedProducts: [],
                 loading: false,
-                list: null
+                list: null,
+                clientInfo: null
             }
         },
         computed: mapGetters(['sortedProducts']),
@@ -131,9 +136,16 @@
 
             },
             createOrder() {
-                this.addOrderAction(this.selectedProducts)
+                const orderDto ={
+                    orderedProducts: this.selectedProducts,
+                    clientInfo: this.clientInfo
+                }
+                this.addOrderAction(orderDto)
                 this.selectedProducts = []
-                this.$router.push("/orders")
+                this.clientInfo = null
+            },
+            setClientInfo(clientInfo) {
+                this.clientInfo = clientInfo
             }
         }
     }

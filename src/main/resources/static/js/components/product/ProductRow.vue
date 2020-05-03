@@ -13,6 +13,8 @@
                         <v-list-item-subtitle>PRICE: {{ product.price }}</v-list-item-subtitle>
                         <v-list-item-subtitle>Total Amount: {{ product.totalAmount }}</v-list-item-subtitle>
                         <v-list-item-subtitle>Description: {{ product.description }}</v-list-item-subtitle>
+                        <v-list-item-subtitle>Placement: {{ product.placement }}</v-list-item-subtitle>
+                        <v-list-item-subtitle>Shelf Life: {{ product.expirationDate }}</v-list-item-subtitle>
                     </v-list-item-content>
                 </v-list-item>
                 <v-card-actions>

@@ -91,10 +91,11 @@ export default new Vuex.Store({
                 commit('removeProductMutation', product)
             }
         },
-        async addOrderAction({commit, state}, orderedProducts) {
-            const result = await orderApi.add(orderedProducts)
+        async addOrderAction({commit, state}, orderDto) {
+            console.log(orderDto)
+            const result = await orderApi.add(orderDto)
             const data = await result.json()
-            const index = state.orders.findIndex(item => item.id === orderedProducts.id)
+            const index = state.orders.findIndex(item => item.id === orderDto.orderedProducts.id)
 
             if (index > -1) {
                 commit('updateOrderMutation', data)

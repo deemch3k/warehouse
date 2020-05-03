@@ -22,5 +22,7 @@ public class Product {
     private String description;
     private int totalAmount;
     private double price;
+    private String placement;
+    private String expirationDate;
 
 }
