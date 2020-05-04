@@ -3,12 +3,10 @@ package pl.dyplom.dyplom.service;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.dyplom.dyplom.domain.OrderedProduct;
 import pl.dyplom.dyplom.domain.Product;
 import pl.dyplom.dyplom.domain.ProductQuantity;
 import pl.dyplom.dyplom.repo.ProductRepo;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -39,16 +37,12 @@ public class ProductService {
         return productRepo.findAll();
     }
 
-    public Set<Product> getSet() {
-        return new HashSet<>(productRepo.findAll());
-    }
-
     public void updateProducts(Set<ProductQuantity> productQuantities) {
         List<Product> products = productRepo.findAll();
 
-        for(ProductQuantity pq: productQuantities) {
+        for (ProductQuantity pq : productQuantities) {
             for (Product p : products) {
-                if(pq.getOrderedProduct().getName().equals(p.getName())){
+                if (pq.getOrderedProduct().getName().equals(p.getName())) {
                     p.setTotalAmount(p.getTotalAmount() - pq.getQty());
                 }
             }

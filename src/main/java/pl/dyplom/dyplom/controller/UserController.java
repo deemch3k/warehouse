@@ -1,58 +1,45 @@
 package pl.dyplom.dyplom.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import pl.dyplom.dyplom.repo.UserRepo;
+import pl.dyplom.dyplom.domain.User;
+import pl.dyplom.dyplom.service.UserService;
 
-@Controller
+import java.util.List;
+
+@RestController
 @RequestMapping("/user")
-@PreAuthorize("hasAuthority('ADMIN')")
 public class UserController {
 
     @Autowired
-    private UserRepo userRepo;
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping
-    public String userList(Model model) {
-        model.addAttribute("users", userRepo.findAll());
-        return "userList";
+    public List<User> userList() {
+        return userService.getList();
     }
-/*
-    @GetMapping("{user}")
-    public String userEditForm(@PathVariable User user, Model model) {
-        model.addAttribute("user", user);
-        model.addAttribute("roles", Role.values());
 
-        return "userEdit";
+    @GetMapping("{id}")
+    public User getOne(@PathVariable("id") User user) {
+        return user;
     }
 
     @PostMapping
-    public String userSave(
-            @RequestParam String username,
-            @RequestParam Map<String, String> form,
-            @RequestParam("userId") User user
-    ) {
-        user.setUsername(username);
-
-        Set<String> roles = Arrays.stream(Role.values())
-                .map(Role::name)
-                .collect(Collectors.toSet());
-
-        user.getRoles().clear();
-
-        for (String key : form.keySet()) {
-            if (roles.contains(key)) {
-                user.getRoles().add(Role.valueOf(key));
-            }
-        }
-
-        userRepo.save(user);
-
-        return "redirect:/user";
+    public User create(@RequestBody User user) {
+        return userService.createUser(user);
     }
 
- */
+    @PutMapping("{id}")
+    public User update(@PathVariable("id") User userFromDB, @RequestBody User user) {
+        return userService.update(userFromDB, user);
+    }
+
+    @DeleteMapping("{id}")
+    public void delete(@PathVariable("id") User user) {
+        userService.delete(user);
+    }
 }

@@ -1,17 +1,13 @@
 package pl.dyplom.dyplom.service;
 
-import ch.qos.logback.core.net.server.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.dyplom.dyplom.domain.ClientInfo;
 import pl.dyplom.dyplom.domain.Order;
-import pl.dyplom.dyplom.domain.ProductQuantity;
 import pl.dyplom.dyplom.domain.User;
 import pl.dyplom.dyplom.dto.OrderDto;
 import pl.dyplom.dyplom.repo.OrderRepo;
 
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class OrderService {
@@ -25,7 +21,7 @@ public class OrderService {
         this.productService = productService;
     }
 
-    public List<Order> getList(){
+    public List<Order> getList() {
         return orderRepo.findAll();
     }
 
@@ -45,7 +41,7 @@ public class OrderService {
         orderDto.getOrderedProducts().stream().forEach(pr -> pr.getOrderedProduct().setId(null));
         order.setProductQuantities(orderDto.getOrderedProducts());
         order.setClientInfo(orderDto.getClientInfo());
-        if(user != null){
+        if (user != null) {
             order.setUser(user);
         }
         productService.updateProducts(orderDto.getOrderedProducts());

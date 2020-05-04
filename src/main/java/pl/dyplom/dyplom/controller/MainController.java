@@ -8,15 +8,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.dyplom.dyplom.domain.Order;
-import pl.dyplom.dyplom.domain.Product;
 import pl.dyplom.dyplom.domain.User;
 import pl.dyplom.dyplom.service.OrderService;
 import pl.dyplom.dyplom.service.ProductService;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 @RequestMapping("/")
@@ -52,7 +49,7 @@ public class MainController {
     }
 
     @GetMapping("login")
-    public String login(){
+    public String login() {
         return "login";
     }
 }

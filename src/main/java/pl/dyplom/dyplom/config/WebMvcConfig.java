@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
 @Configuration
 public class WebMvcConfig {
     @Bean
-    public WebServerFactoryCustomizer<ConfigurableServletWebServerFactory> webServerFactoryCustomizer () {
+    public WebServerFactoryCustomizer<ConfigurableServletWebServerFactory> webServerFactoryCustomizer() {
         return container -> {
             container.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/"));
         };

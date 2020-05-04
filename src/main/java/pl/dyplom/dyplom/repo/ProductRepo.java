@@ -8,5 +8,4 @@ import pl.dyplom.dyplom.domain.Product;
 public interface ProductRepo extends JpaRepository<Product, Long> {
 
 
-
 }

@@ -1,7 +1,6 @@
 package pl.dyplom.dyplom.domain;
 
 import lombok.Data;
-import org.aspectj.weaver.ast.Or;
 
 import javax.persistence.*;
 
