@@ -100,7 +100,8 @@
                 placement: '',
                 expirationDate: new Date().toISOString().substr(0, 10),
                 isCreated: false,
-                isError: false
+                isError: false,
+                menu: ''
             }
         },
         watch: {
@@ -136,6 +137,7 @@
                 this.clear()
                 this.id = '';
                 this.isCreated = true
+                console.log(this.$store.state.profile)
             },
             clear() {
                 this.name = ''

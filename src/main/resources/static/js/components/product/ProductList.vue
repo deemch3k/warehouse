@@ -16,7 +16,7 @@
 </template>
 
 <script>
-    import {mapGetters} from 'vuex'
+    import {mapGetters, mapState} from 'vuex'
     import ProductRow from "./ProductRow.vue";
     import ProductForm from "./ProductForm.vue";
 
@@ -28,6 +28,7 @@
         },
         computed: {
             ...mapGetters(['sortedProducts']),
+            ...mapState(['profile']),
             filteredList() {
                 return this.sortedProducts.filter(prod => {
                     return prod.name.toLowerCase().includes(this.search.toLowerCase())

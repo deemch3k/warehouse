@@ -1,5 +1,14 @@
 <template>
     <v-container class="my-5">
+        <v-alert
+                :value="clientInfoError"
+                class="ma-4"
+                dense
+                outlined
+                type="error"
+        >
+            You need to fill <strong>Client Info</strong> form
+        </v-alert>
         <v-btn large right color="primary" class="float-right ml-10 pa-2" @click="createOrder">Create order</v-btn>
         <v-layout row align-center wrap justify-center>
             <v-flex xs4 align-self-start>
@@ -85,7 +94,8 @@
                 selectedProducts: [],
                 loading: false,
                 list: null,
-                clientInfo: null
+                clientInfo: null,
+                clientInfoError: false,
             }
         },
         computed: mapGetters(['sortedProducts']),
@@ -136,13 +146,17 @@
 
             },
             createOrder() {
-                const orderDto ={
-                    orderedProducts: this.selectedProducts,
-                    clientInfo: this.clientInfo
+                if (this.clientInfo) {
+                    const orderDto = {
+                        orderedProducts: this.selectedProducts,
+                        clientInfo: this.clientInfo
+                    }
+                    this.addOrderAction(orderDto)
+                    this.selectedProducts = []
+                    this.clientInfo = null
+                } else {
+                    this.clientInfoError = true
                 }
-                this.addOrderAction(orderDto)
-                this.selectedProducts = []
-                this.clientInfo = null
             },
             setClientInfo(clientInfo) {
                 this.clientInfo = clientInfo

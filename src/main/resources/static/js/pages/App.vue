@@ -10,9 +10,10 @@
                 <v-tabs align-with-title class="accent-2" centered>
                     <v-tab to="/orders" exact>Orders</v-tab>
                     <v-tab to="/products" exact>Products</v-tab>
+                    <v-tab v-if="profile.role==='ADMIN'" exact>Admin</v-tab>
                 </v-tabs>
             </template>
-            <v-label color="#263238">{{this.$store.state.profile.username}}</v-label>
+            <v-label color="#263238">{{profile.username}}</v-label>
             <v-btn icon href="/logout">
                 <v-icon>exit_to_app</v-icon>
             </v-btn>
@@ -40,7 +41,10 @@
     import ProductList from "../components/product/ProductList.vue";
     import OrderList from "../components/order/OrderList.vue";
 
+    import {mapState} from 'vuex'
+
     export default {
+        computed: mapState(['profile']),
         components: {
             OrderList,
             ProductList
@@ -56,6 +60,11 @@
             },
             toTop () {
                 this.$vuetify.goTo(0)
+            }
+        },
+        beforeMount() {
+            if (!this.profile) {
+                this.$router.replace('/auth')
             }
         }
 

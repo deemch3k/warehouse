@@ -2,16 +2,20 @@ package pl.dyplom.dyplom.domain;
 
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Set;
 
 @Entity
 @Table(name = "usr")
 @Data
 public class User implements UserDetails {
+
+    private static final Long serialVersionUID = 4L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,14 +25,11 @@ public class User implements UserDetails {
     private String username;
     private String password;
 
-    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
-    @Enumerated(EnumType.STRING)
-    private Set<Role> roles;
+    private String role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return getRoles();
+        return Collections.singleton(new SimpleGrantedAuthority(role));
     }
 
     @Override
