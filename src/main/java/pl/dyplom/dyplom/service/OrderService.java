@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import pl.dyplom.dyplom.domain.ClientInfo;
 import pl.dyplom.dyplom.domain.Order;
 import pl.dyplom.dyplom.domain.ProductQuantity;
+import pl.dyplom.dyplom.domain.User;
 import pl.dyplom.dyplom.dto.OrderDto;
 import pl.dyplom.dyplom.repo.OrderRepo;
 
@@ -38,12 +39,15 @@ public class OrderService {
         orderRepo.delete(order);
     }
 
-    public Order createOrder(OrderDto orderDto) {
+    public Order createOrder(OrderDto orderDto, User user) {
 
         Order order = new Order();
         orderDto.getOrderedProducts().stream().forEach(pr -> pr.getOrderedProduct().setId(null));
         order.setProductQuantities(orderDto.getOrderedProducts());
         order.setClientInfo(orderDto.getClientInfo());
+        if(user != null){
+            order.setUser(user);
+        }
         productService.updateProducts(orderDto.getOrderedProducts());
         return orderRepo.save(order);
     }

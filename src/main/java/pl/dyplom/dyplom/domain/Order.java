@@ -21,4 +21,8 @@ public class Order {
     @JoinColumn(name = "client_info_id")
     private ClientInfo clientInfo;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
 }

@@ -1,11 +1,9 @@
 package pl.dyplom.dyplom.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import pl.dyplom.dyplom.domain.ClientInfo;
-import pl.dyplom.dyplom.domain.Order;
-import pl.dyplom.dyplom.domain.Product;
-import pl.dyplom.dyplom.domain.ProductQuantity;
+import pl.dyplom.dyplom.domain.*;
 import pl.dyplom.dyplom.dto.OrderDto;
 import pl.dyplom.dyplom.service.OrderService;
 
@@ -36,8 +34,8 @@ public class OrderController {
     }
 
     @PostMapping
-    public Order create(@RequestBody OrderDto orderDto){
-        return orderService.createOrder(orderDto);
+    public Order create(@RequestBody OrderDto orderDto, @AuthenticationPrincipal User user){
+        return orderService.createOrder(orderDto, user);
     }
 
     @PutMapping("{id}")
