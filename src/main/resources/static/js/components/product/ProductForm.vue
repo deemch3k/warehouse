@@ -90,7 +90,7 @@
               return this.formatDate(today);
           }
         },
-        data: function () {
+        data() {
             return {
                 name: '',
                 price: '',

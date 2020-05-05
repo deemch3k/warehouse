@@ -7,14 +7,10 @@
 </template>
 
 <script>
-    import product from "../../api/product";
 
     export default {
         name: "OrderItem",
         props: ["productQuantity"],
-        methods: {
-
-        }
     }
 </script>
 

@@ -15,8 +15,10 @@
                                     :key="productQuantity.id"
                                     :productQuantity="productQuantity"
                             ></order-item>
-                            <v-list-item-subtitle>Name: {{order.clientInfo.name}} {{order.clientInfo.surname}}</v-list-item-subtitle>
-                            <v-list-item-subtitle>Address: {{order.clientInfo.address}} {{order.clientInfo.postcode}}</v-list-item-subtitle>
+                            <v-list-item-subtitle>Name: {{order.clientInfo.name}} {{order.clientInfo.surname}}
+                            </v-list-item-subtitle>
+                            <v-list-item-subtitle>Address: {{order.clientInfo.address}} {{order.clientInfo.postcode}}
+                            </v-list-item-subtitle>
                             <v-list-item-subtitle>Number: {{order.clientInfo.number}}</v-list-item-subtitle>
                             <v-btn small @click="del">Delete order</v-btn>
                         </v-layout>
@@ -40,17 +42,16 @@
         },
         data() {
             return {
-                product: null
+                product: null,
             }
         },
         methods: {
             ...mapActions(['removeOrderAction']),
             del() {
                 this.removeOrderAction(this.order)
-            }
+            },
         },
         computed: mapGetters(['sortedProducts']),
-
     }
 </script>
 

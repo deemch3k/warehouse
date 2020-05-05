@@ -2,6 +2,7 @@ import Vue from "vue"
 import Vuex from "vuex"
 import productApi from "../api/product"
 import orderApi from '../api/order'
+import userApi from '../api/user'
 
 Vue.use(Vuex)
 
@@ -10,7 +11,8 @@ export default new Vuex.Store({
     state: {
         products: frontendData.products,
         profile: frontendData.profile,
-        orders: frontendData.orders
+        orders: frontendData.orders,
+        users: frontendData.users
     },
     getters: {
         sortedProducts: state => state.products.sort((a, b) => -(a.id - b.id))
@@ -57,14 +59,27 @@ export default new Vuex.Store({
         },
         removeOrderMutation(state, order) {
             const index = state.orders.findIndex(item => item.id === order.id)
+            console.log(order)
+            order.productQuantities.forEach(pq => {
+                state.products.forEach(p => {
+                    if (pq.orderedProduct.name === p.name) {
+                        p.totalAmount += pq.qty
+                    }
+                })
+            });
             if (index > -1) {
                 state.orders = [
                     ...state.orders.slice(0, index),
                     ...state.orders.slice(index + 1)
                 ]
             }
-            console.log(state.orders)
         },
+        addUserMutation(state, user){
+            state.users = [
+                ...state.users,
+                user
+            ]
+        }
     },
     actions: {
         async addProductAction({commit, state}, product) {
@@ -114,7 +129,13 @@ export default new Vuex.Store({
             if (result.ok) {
                 commit('removeOrderMutation', order)
             }
+        },
+        async addUserAction({commit}, user) {
+            const result = await userApi.add(user)
+            if (result.ok) {
+                commit('addUserMutation', user)
+                return 'OK'
+            }
         }
-
     }
 })

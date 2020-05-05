@@ -32,7 +32,9 @@ public class OrderService {
     }
 
     public void delete(Order order) {
+        productService.updateProducts(order.getProductQuantities(),"DELETE");
         orderRepo.delete(order);
+
     }
 
     public Order createOrder(OrderDto orderDto, User user) {
@@ -44,7 +46,7 @@ public class OrderService {
         if (user != null) {
             order.setUser(user);
         }
-        productService.updateProducts(orderDto.getOrderedProducts());
+        productService.updateProducts(orderDto.getOrderedProducts(), "CREATE");
         return orderRepo.save(order);
     }
 }

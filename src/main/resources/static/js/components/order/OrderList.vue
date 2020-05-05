@@ -1,12 +1,12 @@
 <template>
-    <div>
+    <v-container>
         <order-form :order-attr="order"></order-form>
 
         <order-row v-for="order in this.$store.state.orders"
                      :key="order.id"
                      :order="order"
         ></order-row>
-    </div>
+    </v-container>
 </template>
 
 <script>
@@ -21,7 +21,7 @@
         },
         data(){
             return{
-                order: null
+                order: null,
             }
         },
     }

@@ -37,13 +37,18 @@ public class ProductService {
         return productRepo.findAll();
     }
 
-    public void updateProducts(Set<ProductQuantity> productQuantities) {
+
+    public void updateProducts(Set<ProductQuantity> productQuantities, String action) {
         List<Product> products = productRepo.findAll();
 
         for (ProductQuantity pq : productQuantities) {
             for (Product p : products) {
                 if (pq.getOrderedProduct().getName().equals(p.getName())) {
-                    p.setTotalAmount(p.getTotalAmount() - pq.getQty());
+                    if (action.equals("CREATE")) {
+                        p.setTotalAmount(p.getTotalAmount() - pq.getQty());
+                    } else if (action.equals("DELETE")) {
+                        p.setTotalAmount(p.getTotalAmount() + pq.getQty());
+                    }
                 }
             }
         }

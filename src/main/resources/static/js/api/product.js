@@ -6,9 +6,4 @@ export default {
     add: product => products.save({}, product),
     update: product => products.update({id: product.id}, product),
     remove: id => products.remove({id}),
-    upt: {
-        function(product) {
-            this.$http.put('/product' + product.id, product)
-        }
-    }
 }

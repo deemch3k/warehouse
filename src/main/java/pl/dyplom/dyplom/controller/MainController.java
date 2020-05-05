@@ -11,6 +11,7 @@ import pl.dyplom.dyplom.domain.Order;
 import pl.dyplom.dyplom.domain.User;
 import pl.dyplom.dyplom.service.OrderService;
 import pl.dyplom.dyplom.service.ProductService;
+import pl.dyplom.dyplom.service.UserService;
 
 import java.util.HashMap;
 import java.util.List;
@@ -24,11 +25,13 @@ public class MainController {
 
     private final ProductService productService;
     private final OrderService orderService;
+    private final UserService userService;
 
     @Autowired
-    public MainController(ProductService productService, OrderService orderService) {
+    public MainController(ProductService productService, OrderService orderService, UserService userService) {
         this.productService = productService;
         this.orderService = orderService;
+        this.userService = userService;
     }
 
     @GetMapping
@@ -40,6 +43,7 @@ public class MainController {
             data.put("products", productService.getList());
             List<Order> list = orderService.getList();
             data.put("orders", orderService.getList());
+            data.put("users", userService.getList());
         }
 
         model.addAttribute("frontendData", data);
