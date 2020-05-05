@@ -4,6 +4,7 @@ import OrderList from "../components/order/OrderList.vue";
 import ProductList from "../components/product/ProductList.vue";
 import UserCreation from "../components/user/UserCreation.vue";
 import UserList from "../components/user/UserList.vue";
+import UserHistory from "../components/user/UserHistory.vue";
 import Profile from "../components/profile/Profile.vue";
 
 Vue.use(VueRouter)
@@ -13,6 +14,7 @@ const routes = [
     {path:'/products', component: ProductList},
     {path:'/create-user', component: UserCreation},
     {path:'/user-list', component: UserList},
+    {path:'/user-history', component: UserHistory},
     {path:'/profile', component: Profile},
     {path:'*', component: OrderList}
 ]

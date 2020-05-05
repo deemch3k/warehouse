@@ -86,7 +86,7 @@
                 this.$router.push("/profile")
             },
             goToHistory(){
-                this.$router.push("/history")
+                this.$router.push("/user-history")
             }
         },
         beforeMount() {

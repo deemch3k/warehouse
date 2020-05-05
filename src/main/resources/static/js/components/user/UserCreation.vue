@@ -34,7 +34,7 @@
                     outlined
                     type="error"
             >
-                User with entered parameters  <strong>already exist</strong>
+                User with entered parameters <strong>already exist</strong>
             </v-alert>
             <v-btn class="mr-4" @click="save">Save</v-btn>
             <v-btn class="mr-4" @click="clear">Clear</v-btn>
@@ -58,7 +58,7 @@
             return {
                 username: '',
                 password: '',
-                role: '',
+                role: 'USER',
                 roles: ['USER', 'ADMIN'],
                 isCreated: false,
                 isError: false
@@ -66,23 +66,23 @@
         },
         methods: {
             ...mapActions(['addUserAction']),
-            async save() {
-                const user = {
-                    username: this.username,
-                    password: this.password,
-                    role: this.role,
-                }
-                var res = await this.addUserAction(user)
-
-                if(res === 'OK') {
+            save() {
+                var index = this.$store.state.users.findIndex(u => u.username === this.username)
+                console.log(index)
+                if (index > -1) {
+                    this.isError = true
+                } else {
+                    const user = {
+                        username: this.username,
+                        password: this.password,
+                        role: this.role,
+                    }
+                    this.addUserAction(user)
                     this.isCreated = true
                     this.clear()
-                } else {
-                    //todo check if user already exist
-                   this.isError = true
                 }
             },
-            clear(){
+            clear() {
                 this.username = ''
                 this.password = ''
                 this.role = ''
