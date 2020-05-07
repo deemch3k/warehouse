@@ -1,5 +1,5 @@
 <template>
-    <v-container class="my-5">
+    <v-container fluid class="my-5">
         <v-alert
                 :value="clientInfoError"
                 class="ma-4"
@@ -9,7 +9,10 @@
         >
             You need to fill <strong>Client Info</strong> form
         </v-alert>
-        <v-btn large right color="primary" class="float-right ml-10 pa-2" @click="createOrder">Create order</v-btn>
+        <v-container fluid>
+            <v-btn large right color="primary" class="float-right ml-10 pa-2" @click="createOrder">Create order</v-btn>
+            <v-checkbox v-model="attachUser" :label="'Set an order to the current user?'" class="ma-5"></v-checkbox>
+        </v-container>
         <v-layout row align-center wrap justify-center>
             <v-flex xs4 align-self-start>
                 <v-btn block top class="primary pa-2 ma-5">Products</v-btn>
@@ -83,7 +86,7 @@
 </template>
 
 <script>
-    import {mapGetters, mapActions} from "vuex";
+    import {mapGetters, mapActions, mapState} from "vuex";
     import ClientInfoForm from "../clientInfo/ClientInfoForm.vue";
 
     export default {
@@ -96,9 +99,14 @@
                 list: null,
                 clientInfo: null,
                 clientInfoError: false,
+                attachUser: false,
             }
         },
-        computed: mapGetters(['sortedProducts']),
+        computed: {
+            ...mapGetters(['sortedProducts']),
+            ...mapState(['profile'])
+
+        },
         beforeMount() {
             this.list = this.sortedProducts
         },
@@ -149,7 +157,11 @@
                 if (this.clientInfo) {
                     const orderDto = {
                         orderedProducts: this.selectedProducts,
-                        clientInfo: this.clientInfo
+                        clientInfo: this.clientInfo,
+                        user: null
+                    }
+                    if (this.attachUser) {
+                        orderDto.user = this.profile
                     }
                     this.addOrderAction(orderDto)
                     this.selectedProducts = []

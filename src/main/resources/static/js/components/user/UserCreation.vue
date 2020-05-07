@@ -15,8 +15,7 @@
             <v-select
                     :items="roles"
                     v-model="role"
-                    label="Standard"
-                    dense
+                    required
             ></v-select>
             <v-alert
                     :value="isCreated"

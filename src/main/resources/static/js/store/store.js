@@ -15,7 +15,9 @@ export default new Vuex.Store({
         users: frontendData.users
     },
     getters: {
-        sortedProducts: state => state.products.sort((a, b) => -(a.id - b.id))
+        sortedProducts: state => state.products.sort((a, b) => -(a.id - b.id)),
+        availableOrders: state => state.orders.filter(o => o.user === null),
+        myOrders: state => state.orders.filter(o => o.user !== null && o.user.username === state.profile.username)
     },
     mutations: {
         addProductMutation(state, product) {
@@ -107,7 +109,6 @@ export default new Vuex.Store({
             }
         },
         async addOrderAction({commit, state}, orderDto) {
-            console.log(orderDto)
             const result = await orderApi.add(orderDto)
             const data = await result.json()
             const index = state.orders.findIndex(item => item.id === orderDto.orderedProducts.id)
@@ -136,6 +137,6 @@ export default new Vuex.Store({
                 commit('addUserMutation', user)
                 return 'OK'
             }
-        }
+        },
     }
 })

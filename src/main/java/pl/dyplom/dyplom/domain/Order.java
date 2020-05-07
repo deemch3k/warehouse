@@ -1,6 +1,7 @@
 package pl.dyplom.dyplom.domain;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -9,11 +10,14 @@ import java.util.Set;
 @Entity
 @Table(name = "orders")
 @Data
+@NoArgsConstructor
 public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    private String status;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<ProductQuantity> productQuantities = new HashSet<>();

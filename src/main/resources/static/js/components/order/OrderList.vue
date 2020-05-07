@@ -1,26 +1,27 @@
 <template>
-    <v-container>
-        <order-form :order-attr="order"></order-form>
-
-        <order-row v-for="order in this.$store.state.orders"
-                     :key="order.id"
-                     :order="order"
+    <v-container fluid>
+        <order-row v-for="order in this.availableOrders"
+                   :key="order.id"
+                   :order="order"
         ></order-row>
     </v-container>
 </template>
 
 <script>
     import OrderRow from "./OrderRow.vue";
-    import OrderForm from "./OrderForm.vue";
+    import {mapState, mapGetters} from 'vuex'
 
     export default {
         name: "OrderList",
         components: {
-            OrderForm,
-            OrderRow
+            OrderRow,
         },
-        data(){
-            return{
+        computed: {
+            ...mapState(['profile', 'orders']),
+            ...mapGetters(['availableOrders'])
+        },
+        data() {
+            return {
                 order: null,
             }
         },

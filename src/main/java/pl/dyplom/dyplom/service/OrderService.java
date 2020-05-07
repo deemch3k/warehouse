@@ -1,5 +1,6 @@
 package pl.dyplom.dyplom.service;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.dyplom.dyplom.domain.Order;
@@ -27,7 +28,10 @@ public class OrderService {
 
 
     public Order update(Order orderFromDB, Order order) {
-        orderFromDB.setProductQuantities(order.getProductQuantities());
+        orderFromDB.getProductQuantities().clear();
+        orderFromDB.getProductQuantities().addAll(order.getProductQuantities());
+        orderFromDB.setStatus(order.getStatus());
+        orderFromDB.setUser(order.getUser());
         return orderRepo.save(orderFromDB);
     }
 
@@ -43,7 +47,8 @@ public class OrderService {
         orderDto.getOrderedProducts().stream().forEach(pr -> pr.getOrderedProduct().setId(null));
         order.setProductQuantities(orderDto.getOrderedProducts());
         order.setClientInfo(orderDto.getClientInfo());
-        if (user != null) {
+        order.setStatus("PENDING");
+        if (user != null && orderDto.getUser() != null) {
             order.setUser(user);
         }
         productService.updateProducts(orderDto.getOrderedProducts(), "CREATE");

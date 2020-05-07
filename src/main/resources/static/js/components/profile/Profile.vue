@@ -1,32 +1,32 @@
 <template>
-    <v-container fill-height fluid grid-list-xl>
+    <v-container fill-height fluid>
         <v-layout justify-center wrap>
-            <v-flex xs12 md8 align-self-start>
-                <v-form>
-                    <v-container>
-                        <v-layout wrap>
-                            <v-flex xs12 md6>
-                                <v-label>Username: {{profile.username}}</v-label>
-                            </v-flex>
-                            <v-flex xs12 md6>
-                                <v-label>Role: {{profile.role}}</v-label>
-                            </v-flex>
-                        </v-layout>
-                    </v-container>
-                </v-form>
+            <v-flex xs12 md6 align-self-start>
+                <v-btn block top class="primary pa-2 ma-5">My Orders</v-btn>
+                <v-container fluid>
+                    <order-row v-for="order in myOrders"
+                               :key="order.id"
+                               :order="order"
+                    ></order-row>
+                </v-container>
             </v-flex>
         </v-layout>
     </v-container>
 </template>
 
 <script>
-    import {mapState} from 'vuex'
+    import {mapState, mapGetters} from 'vuex'
+    import OrderRow from "../order/OrderRow.vue";
 
     export default {
         name: 'Profile',
+        components:{
+            OrderRow,
+        },
         computed: {
-            ...mapState(['profile']),
-        }
+            ...mapState(['profile', 'orders']),
+            ...mapGetters(['myOrders'])
+        },
     }
 </script>
 
