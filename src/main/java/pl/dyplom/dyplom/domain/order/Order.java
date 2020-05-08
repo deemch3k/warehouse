@@ -1,7 +1,10 @@
-package pl.dyplom.dyplom.domain;
+package pl.dyplom.dyplom.domain.order;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.dyplom.dyplom.domain.ClientInfo;
+import pl.dyplom.dyplom.domain.ProductQuantity;
+import pl.dyplom.dyplom.domain.User;
 
 import javax.persistence.*;
 import java.util.HashSet;

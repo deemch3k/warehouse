@@ -11,6 +11,15 @@
         </v-alert>
         <v-container fluid>
             <v-btn large right color="primary" class="float-right ml-10 pa-2" @click="createOrder">Create order</v-btn>
+                <v-alert
+                        :value="isCreated"
+                        class="float-right ma-4"
+                        dense
+                        text
+                        type="success"
+                >
+                    Order was created <strong>successfully</strong>
+                </v-alert>
             <v-checkbox v-model="attachUser" :label="'Set an order to the current user?'" class="ma-5"></v-checkbox>
         </v-container>
         <v-layout row align-center wrap justify-center>
@@ -100,6 +109,7 @@
                 clientInfo: null,
                 clientInfoError: false,
                 attachUser: false,
+                isCreated: false
             }
         },
         computed: {
@@ -166,6 +176,7 @@
                     this.addOrderAction(orderDto)
                     this.selectedProducts = []
                     this.clientInfo = null
+                    this.isCreated = true
                 } else {
                     this.clientInfoError = true
                 }

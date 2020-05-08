@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import pl.dyplom.dyplom.domain.Order;
+import pl.dyplom.dyplom.domain.order.Order;
 import pl.dyplom.dyplom.domain.User;
 import pl.dyplom.dyplom.service.OrderService;
 import pl.dyplom.dyplom.service.ProductService;

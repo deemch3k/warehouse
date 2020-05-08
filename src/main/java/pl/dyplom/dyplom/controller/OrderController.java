@@ -3,7 +3,8 @@ package pl.dyplom.dyplom.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import pl.dyplom.dyplom.domain.Order;
+import pl.dyplom.dyplom.domain.order.CancellationReport;
+import pl.dyplom.dyplom.domain.order.Order;
 import pl.dyplom.dyplom.domain.User;
 import pl.dyplom.dyplom.dto.OrderDto;
 import pl.dyplom.dyplom.service.OrderService;
@@ -45,6 +46,11 @@ public class OrderController {
     @DeleteMapping("{id}")
     public void delete(@PathVariable("id") Order order) {
         orderService.delete(order);
+    }
+
+    @PostMapping("/cancel")
+    public void cancelOrder(@RequestBody CancellationReport cr){
+       orderService.cancelOrder(cr);
     }
 
 }

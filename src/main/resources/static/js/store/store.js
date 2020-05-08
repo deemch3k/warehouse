@@ -76,7 +76,7 @@ export default new Vuex.Store({
                 ]
             }
         },
-        addUserMutation(state, user){
+        addUserMutation(state, user) {
             state.users = [
                 ...state.users,
                 user
@@ -138,5 +138,8 @@ export default new Vuex.Store({
                 return 'OK'
             }
         },
+        async cancellationOrderAction({commit}, cancellationReportDto) {
+            await orderApi.cancelOrder(cancellationReportDto)
+        }
     }
 })

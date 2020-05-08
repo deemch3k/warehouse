@@ -1,11 +1,12 @@
 package pl.dyplom.dyplom.service;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.dyplom.dyplom.domain.Order;
+import pl.dyplom.dyplom.domain.order.CancellationReport;
+import pl.dyplom.dyplom.domain.order.Order;
 import pl.dyplom.dyplom.domain.User;
 import pl.dyplom.dyplom.dto.OrderDto;
+import pl.dyplom.dyplom.repo.CancellationReportRepo;
 import pl.dyplom.dyplom.repo.OrderRepo;
 
 import java.util.List;
@@ -15,11 +16,13 @@ public class OrderService {
 
     private final OrderRepo orderRepo;
     private final ProductService productService;
+    private final CancellationReportRepo cancellationReportRepo;
 
     @Autowired
-    public OrderService(OrderRepo orderRepo, ProductService productService) {
+    public OrderService(OrderRepo orderRepo, ProductService productService, CancellationReportRepo cancellationReportRepo) {
         this.orderRepo = orderRepo;
         this.productService = productService;
+        this.cancellationReportRepo = cancellationReportRepo;
     }
 
     public List<Order> getList() {
@@ -53,5 +56,9 @@ public class OrderService {
         }
         productService.updateProducts(orderDto.getOrderedProducts(), "CREATE");
         return orderRepo.save(order);
+    }
+
+    public void cancelOrder(CancellationReport cr){
+        cancellationReportRepo.save(cr);
     }
 }

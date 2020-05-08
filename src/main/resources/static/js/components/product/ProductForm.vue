@@ -63,7 +63,7 @@
                 text
                 type="success"
         >
-            Order created <strong>successfully</strong>
+            Product was created <strong>successfully</strong>
         </v-alert>
         <v-alert
                 :value="isError"
