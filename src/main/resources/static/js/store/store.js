@@ -17,7 +17,27 @@ export default new Vuex.Store({
     getters: {
         sortedProducts: state => state.products.sort((a, b) => -(a.id - b.id)),
         availableOrders: state => state.orders.filter(o => o.user === null),
-        myOrders: state => state.orders.filter(o => o.user !== null && o.user.username === state.profile.username)
+        myOrders: state => state.orders.filter(o => o.user !== null && o.user.username === state.profile.username),
+        myPendingOrders: state => state.orders.filter(o =>
+            o.user !== null &&
+            o.user.username === state.profile.username &&
+            o.status === 'PENDING'),
+        historyOrders: state => state.orders.filter(o =>
+            o.user !== null &&
+            o.user.id === state.profile.id &&
+            (o.status === 'COMPLETED' || o.status === 'CANCELED')
+        ),
+        selectedOrdersGetter: (state, getters) => (selectedStatus, isAvailableOrders) => {
+
+            if (isAvailableOrders) {
+                return getters.availableOrders
+            } else {
+                return state.orders.filter(o =>
+                    o.user !== null &&
+                    selectedStatus.includes(o.status))
+            }
+
+        }
     },
     mutations: {
         addProductMutation(state, product) {

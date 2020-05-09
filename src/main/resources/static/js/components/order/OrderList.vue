@@ -1,8 +1,22 @@
 <template>
     <v-container fluid>
-        <order-row v-for="order in this.availableOrders"
-                   :key="order.id"
-                   :order="order"
+        <v-switch
+                v-if="profile.role === 'ADMIN'"
+                v-model="isAvailableOrders"
+                :label="`Only available orders: ${isAvailableOrders.toString()}`"
+        ></v-switch>
+        <v-select
+                v-if="profile.role === 'ADMIN' && !isAvailableOrders"
+                v-model="selectedStatus"
+                :items="['COMPLETED', 'PENDING', 'CANCELED']"
+                label="Select Status"
+                multiple
+        >
+        </v-select>
+        <order-row
+                v-for="order in selectedOrdersGetter(selectedStatus, isAvailableOrders)"
+                :key="order.id"
+                :order="order"
         ></order-row>
     </v-container>
 </template>
@@ -18,11 +32,13 @@
         },
         computed: {
             ...mapState(['profile', 'orders']),
-            ...mapGetters(['availableOrders'])
+            ...mapGetters(['availableOrders', 'selectedOrdersGetter']),
+
         },
         data() {
             return {
-                order: null,
+                selectedStatus: ['PENDING'],
+                isAvailableOrders: true
             }
         },
     }

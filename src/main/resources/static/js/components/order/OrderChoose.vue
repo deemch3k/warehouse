@@ -1,5 +1,8 @@
 <template>
-    <v-container fluid>
+    <v-dialog v-model="dialog" persistent max-width="600px">
+        <template v-slot:activator="{ on }">
+            <v-btn color="primary" dark small v-on="on">Choose order</v-btn>
+        </template>
         <v-card>
             <v-card-title>
                 <span class="headline">Order: {{order.id}}</span>
@@ -14,7 +17,8 @@
                                 <v-list-item-subtitle>Quantity: {{pq.qty}}</v-list-item-subtitle>
                                 <v-list-item-subtitle>Quantity: {{pq.qty}}</v-list-item-subtitle>
                                 <v-list-item-subtitle>Name: {{pq.orderedProduct.name}}</v-list-item-subtitle>
-                                <v-list-item-subtitle>Placement: {{pq.orderedProduct.placement}}</v-list-item-subtitle>
+                                <v-list-item-subtitle>Placement: {{pq.orderedProduct.placement}}
+                                </v-list-item-subtitle>
                                 <v-list-item-subtitle>Expiration Date: {{pq.orderedProduct.expirationDate}}
                                 </v-list-item-subtitle>
                             </v-list>
@@ -32,12 +36,12 @@
                         </v-col>
                         <v-col cols="12" sm="6">
                             <v-select
-                                    :items="['Completed', 'Pending', 'Canceled']"
+                                    :items="['COMPLETED', 'PENDING', 'CANCELED']"
                                     v-model="status"
                                     required
                             ></v-select>
                             <v-select
-                                    v-if="status === 'Canceled'"
+                                    v-if="status === 'CANCELED'"
                                     :items="['item1', 'item2', 'item3']"
                                     v-model="reasonForCancellation"
                                     label="Reason for Cancellation"
@@ -53,7 +57,7 @@
                 <v-btn color="blue darken-1" text @click="bindOrder(order)">Save</v-btn>
             </v-card-actions>
         </v-card>
-    </v-container>
+    </v-dialog>
 </template>
 
 <script>
@@ -63,19 +67,20 @@
     export default {
 
 
-        name: 'OrderDetails',
+        name: 'OrderChoose',
         props: ['order'],
         data() {
             return {
                 status: 'PENDING',
-                reasonForCancellation: ''
+                reasonForCancellation: '',
+                dialog: false
             }
         },
         computed: {
             ...mapState(['profile'])
         },
         methods: {
-            ...mapActions(['updateOrderAction','cancellationOrderAction']),
+            ...mapActions(['updateOrderAction', 'cancellationOrderAction']),
             bindOrder() {
                 this.order.status = this.status
                 if (this.status === 'Canceled') {

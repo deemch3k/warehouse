@@ -1,56 +1,53 @@
 <template>
     <v-container fluid>
-        <v-layout column>
-            <v-flex xs4>
-                <v-card
-                        class="d-flex flex-row mb-6 pa-2 ma-4"
-                        max-width="344"
-                        outlined
-                >
-                    <v-list-item three-line>
-                        <v-layout row>
-                            <v-flex>Order ID: {{order.id}}</v-flex>
-                            <order-item
-                                    v-for="productQuantity in order.productQuantities"
-                                    :key="productQuantity.id"
-                                    :productQuantity="productQuantity"
-                            ></order-item>
-                            <v-btn v-if="profile.role === 'ADMIN'" small @click="del">Delete order</v-btn>
-                            <v-row justify="center">
-                                <v-dialog v-model="dialog" persistent max-width="600px">
-                                    <template v-slot:activator="{ on }">
-                                        <v-btn color="primary" dark v-on="on">Choose order</v-btn>
-                                    </template>
-                                    <order-details
-                                            :order="order"
-                                    ></order-details>
-                                </v-dialog>
-                            </v-row>
-                        </v-layout>
-                    </v-list-item>
-                </v-card>
-            </v-flex>
-        </v-layout>
+        <v-card>
+            <v-list-item>
+                <v-list-item-content>
+                    <div class="overline mb-4">ID:{{order.id}}</div>
+                    <div class="overline mb-4">status:{{order.status}}</div>
+                    <div v-if="order.user !== null" class="overline mb-4">User:{{order.user.username}}</div>
+                    <v-list-item-title class="headline mb-1">Order #{{order.id}}</v-list-item-title>
+                    <v-list-item-subtitle
+                            v-for="pq in order.productQuantities"
+                            :key="pq.id"
+                    >
+                        {{ pq.qty }} X {{pq.orderedProduct.name}}
+                    </v-list-item-subtitle>
+                    <v-card-actions class="row">
+                        <v-flex class="text-xs-right">
+                            <v-btn
+                                    v-if="profile.role === 'ADMIN'"
+                                    color="primary"
+                                    dark
+                                    small
+                                    @click="del"
+                            >
+                                Delete order
+                            </v-btn>
+                            <order-choose
+                                    :order="order"
+                            ></order-choose>
+                        </v-flex>
+                    </v-card-actions>
+                </v-list-item-content>
+            </v-list-item>
+        </v-card>
     </v-container>
-
 </template>
 
 <script>
     import {mapGetters, mapActions, mapState} from "vuex";
-    import OrderItem from "./OrderItem.vue";
-    import OrderDetails from "./OrderDetails.vue"
+    import OrderChoose from "./OrderChoose.vue"
 
     export default {
         name: "OrderRow",
         props: ['order'],
         components: {
-            OrderItem,
-            OrderDetails
+            OrderChoose
         },
         data() {
             return {
                 product: null,
-                dialog: false,
                 status: 'PENDING',
                 reasonForCancellation: ''
             }
@@ -59,7 +56,7 @@
             ...mapActions(['removeOrderAction', 'updateOrderAction']),
             del() {
                 this.removeOrderAction(this.order)
-            }
+            },
         },
         computed: {
             ...mapGetters(['sortedProducts']),
