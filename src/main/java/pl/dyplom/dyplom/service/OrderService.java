@@ -61,4 +61,7 @@ public class OrderService {
     public void cancelOrder(CancellationReport cr){
         cancellationReportRepo.save(cr);
     }
+    public List<CancellationReport> getReportsList(){
+       return cancellationReportRepo.findAll();
+    }
 }

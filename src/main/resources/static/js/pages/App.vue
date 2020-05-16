@@ -13,6 +13,7 @@
                     <v-tab to="/products" exact>Products</v-tab>
                     <v-tab to="/create-user" v-if="profile.role==='ADMIN'" exact>Create User</v-tab>
                     <v-tab to="/user-list" v-if="profile.role==='ADMIN'" exact>User List</v-tab>
+                    <v-tab to="/cancellation-reports" v-if="profile.role==='ADMIN'" exact>Cancellation Reports</v-tab>
                 </v-tabs>
             </template>
 

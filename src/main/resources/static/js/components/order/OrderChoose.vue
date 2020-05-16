@@ -83,9 +83,9 @@
             ...mapActions(['updateOrderAction', 'cancellationOrderAction']),
             bindOrder() {
                 this.order.status = this.status
-                if (this.status === 'Canceled') {
+                if (this.status === 'CANCELED') {
                     var cancellationReportDto = {
-                        order: this.order,
+                        orderId: this.order.id,
                         reasonForCancellation: this.reasonForCancellation
                     }
                     this.cancellationOrderAction(cancellationReportDto)

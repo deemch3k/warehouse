@@ -7,6 +7,7 @@ import UserList from "../components/user/UserList.vue";
 import UserHistory from "../components/user/UserHistory.vue";
 import Profile from "../components/profile/Profile.vue";
 import OrderForm from "../components/order/OrderForm.vue";
+import CancellationReportList from "../components/report/CancellationReportList.vue";
 
 Vue.use(VueRouter)
 
@@ -18,6 +19,7 @@ const routes = [
     {path:'/user-list', component: UserList},
     {path:'/user-history', component: UserHistory},
     {path:'/profile', component: Profile},
+    {path:'/cancellation-reports', component: CancellationReportList},
     {path:'*', component: OrderList}
 ]
 

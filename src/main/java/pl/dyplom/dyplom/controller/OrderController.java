@@ -53,4 +53,9 @@ public class OrderController {
        orderService.cancelOrder(cr);
     }
 
+    @GetMapping("/cancel")
+    public List<CancellationReport> getReportsList(){
+       return orderService.getReportsList();
+    }
+
 }

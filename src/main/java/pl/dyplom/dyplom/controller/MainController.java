@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.dyplom.dyplom.domain.order.CancellationReport;
 import pl.dyplom.dyplom.domain.order.Order;
 import pl.dyplom.dyplom.domain.User;
 import pl.dyplom.dyplom.service.OrderService;
@@ -44,6 +45,7 @@ public class MainController {
             List<Order> list = orderService.getList();
             data.put("orders", orderService.getList());
             data.put("users", userService.getList());
+            data.put("reports", orderService.getReportsList());
         }
 
         model.addAttribute("frontendData", data);

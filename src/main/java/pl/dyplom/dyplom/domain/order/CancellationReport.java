@@ -17,9 +17,7 @@ public class CancellationReport {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "order_id")
-    private Order order;
+    private String orderId;
     private String reasonForCancellation;
 
 }

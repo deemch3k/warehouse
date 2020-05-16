@@ -12,7 +12,8 @@ export default new Vuex.Store({
         products: frontendData.products,
         profile: frontendData.profile,
         orders: frontendData.orders,
-        users: frontendData.users
+        users: frontendData.users,
+        reports: frontendData.reports
     },
     getters: {
         sortedProducts: state => state.products.sort((a, b) => -(a.id - b.id)),
@@ -36,8 +37,8 @@ export default new Vuex.Store({
                     o.user !== null &&
                     selectedStatus.includes(o.status))
             }
-
-        }
+        },
+        sortedReports: state => state.reports.sort((a, b) => -(a.id - b.id))
     },
     mutations: {
         addProductMutation(state, product) {
@@ -101,6 +102,12 @@ export default new Vuex.Store({
                 ...state.users,
                 user
             ]
+        },
+        cancellationOrderMutation(state, cancellationReport) {
+            state.reports = [
+                ...state.reports,
+                cancellationReport
+            ]
         }
     },
     actions: {
@@ -159,7 +166,10 @@ export default new Vuex.Store({
             }
         },
         async cancellationOrderAction({commit}, cancellationReportDto) {
-            await orderApi.cancelOrder(cancellationReportDto)
+           const result = await orderApi.cancelOrder(cancellationReportDto)
+            if(result.ok){
+                commit('cancellationOrderMutation', cancellationReportDto)
+            }
         }
     }
 })
