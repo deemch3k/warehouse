@@ -31,7 +31,7 @@
             OrderRow,
         },
         computed: {
-            ...mapState(['profile', 'orders']),
+            ...mapState(['profile']),
             ...mapGetters(['availableOrders', 'selectedOrdersGetter']),
 
         },
