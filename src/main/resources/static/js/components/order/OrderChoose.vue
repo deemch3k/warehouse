@@ -82,17 +82,19 @@
         methods: {
             ...mapActions(['updateOrderAction', 'cancellationOrderAction']),
             bindOrder() {
-                this.order.status = this.status
-                if (this.status === 'CANCELED') {
-                    var cancellationReportDto = {
-                        orderId: this.order.id,
-                        reasonForCancellation: this.reasonForCancellation
+                if (this.order.user == null) {
+                    this.order.status = this.status
+                    if (this.status === 'CANCELED') {
+                        var cancellationReportDto = {
+                            orderId: this.order.id,
+                            reasonForCancellation: this.reasonForCancellation
+                        }
+                        this.cancellationOrderAction(cancellationReportDto)
                     }
-                    this.cancellationOrderAction(cancellationReportDto)
+                    this.order.user = this.profile
+                    this.updateOrderAction(this.order)
+                    this.dialog = false
                 }
-                this.order.user = this.profile
-                this.updateOrderAction(this.order)
-                this.dialog = false
             },
         }
 

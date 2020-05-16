@@ -29,7 +29,6 @@ public class OrderService {
         return orderRepo.findAll();
     }
 
-
     public Order update(Order orderFromDB, Order order) {
         orderFromDB.getProductQuantities().clear();
         orderFromDB.getProductQuantities().addAll(order.getProductQuantities());

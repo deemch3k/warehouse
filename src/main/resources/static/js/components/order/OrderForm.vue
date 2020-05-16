@@ -122,9 +122,6 @@
         },
         methods: {
             ...mapActions(['addOrderAction']),
-            save() {
-
-            },
             select(product) {
                 const index = this.selectedProducts.findIndex(item => item.orderedProduct.id === product.id)
 
