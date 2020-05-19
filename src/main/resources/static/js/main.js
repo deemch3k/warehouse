@@ -5,6 +5,9 @@ import store from "./store/store"
 import vuetify from "./plugins/vuetify";
 import router from 'router/router'
 import App from 'pages/App.vue'
+import { connect } from "./util/ws";
+
+connect()
 
 new Vue({
     el: '#app',

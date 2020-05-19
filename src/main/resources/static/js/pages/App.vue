@@ -64,6 +64,7 @@
     import OrderList from "../components/order/OrderList.vue";
 
     import {mapState} from 'vuex'
+    import {addHandler} from "../util/ws";
 
     export default {
         name: 'App',
@@ -95,7 +96,7 @@
             if (!this.profile) {
                 this.$router.replace('/auth')
             }
-        },
+        }
     }
 </script>
 

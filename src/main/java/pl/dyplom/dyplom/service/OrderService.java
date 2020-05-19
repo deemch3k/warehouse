@@ -37,6 +37,10 @@ public class OrderService {
         return orderRepo.save(orderFromDB);
     }
 
+    public Order update(Order order){
+       return orderRepo.save(order);
+    }
+
     public void delete(Order order) {
         productService.updateProducts(order.getProductQuantities(),"DELETE");
         orderRepo.delete(order);

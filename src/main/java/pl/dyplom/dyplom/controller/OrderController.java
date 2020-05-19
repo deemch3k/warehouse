@@ -1,6 +1,8 @@
 package pl.dyplom.dyplom.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import pl.dyplom.dyplom.domain.order.CancellationReport;
@@ -58,4 +60,10 @@ public class OrderController {
        return orderService.getReportsList();
     }
 
+    @MessageMapping("/update-order")
+    @SendTo("/topic/activity")
+    public Order test(Order order){
+        System.out.println(order.getId());
+        return orderService.update(order);
+    }
 }

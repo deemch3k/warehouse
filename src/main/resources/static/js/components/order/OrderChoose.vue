@@ -63,6 +63,7 @@
 <script>
 
     import {mapActions, mapState} from 'vuex'
+    import {sendOrder} from "../../util/ws";
 
     export default {
 
@@ -92,7 +93,8 @@
                         this.cancellationOrderAction(cancellationReportDto)
                     }
                     this.order.user = this.profile
-                    this.updateOrderAction(this.order)
+                   // this.updateOrderAction(this.order)
+                    sendOrder(this.order)
                     this.dialog = false
                 }
             },

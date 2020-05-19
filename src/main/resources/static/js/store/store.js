@@ -3,6 +3,7 @@ import Vuex from "vuex"
 import productApi from "../api/product"
 import orderApi from '../api/order'
 import userApi from '../api/user'
+import {sendOrder} from "../util/ws";
 
 Vue.use(Vuex)
 
@@ -73,6 +74,7 @@ export default new Vuex.Store({
             ]
         },
         updateOrderMutation(state, order) {
+            console.log(order)
             const index = state.orders.findIndex(item => item.id === order.id)
             state.orders = [
                 ...state.orders.slice(0, index),

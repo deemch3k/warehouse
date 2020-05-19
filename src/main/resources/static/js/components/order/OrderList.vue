@@ -14,7 +14,7 @@
         >
         </v-select>
         <order-row
-                v-for="order in selectedOrdersGetter(selectedStatus, isAvailableOrders)"
+                v-for="order in dynamicOrders"
                 :key="order.id"
                 :order="order"
         ></order-row>
@@ -23,7 +23,8 @@
 
 <script>
     import OrderRow from "./OrderRow.vue";
-    import {mapState, mapGetters} from 'vuex'
+    import {mapState, mapGetters, mapMutations} from 'vuex'
+    import {addHandler} from "../../util/ws";
 
     export default {
         name: "OrderList",
@@ -33,14 +34,36 @@
         computed: {
             ...mapState(['profile', 'orders']),
             ...mapGetters(['availableOrders', 'selectedOrdersGetter']),
-
         },
         data() {
             return {
                 selectedStatus: ['PENDING'],
-                isAvailableOrders: true
+                isAvailableOrders: true,
+                dynamicOrders: []
             }
         },
+        created() {
+            addHandler(data => {
+                let index = this.$store.state.orders.findIndex(o => o.id === data.id)
+                console.log(data)
+                if(index > -1){
+                    this.$store.commit('updateOrderMutation', data)
+                } else {
+                    this.$store.commit('addOrderMutation', data)
+                }
+            })
+
+        },
+        methods: {
+            ...mapMutations(['updateOrderMutation', 'addOrderMutation']),
+            getOrders(){
+                return this.selectedOrdersGetter(this.selectedStatus, this.isAvailableOrders)
+            }
+        },
+        beforeMount() {
+            this.dynamicOrders = this.getOrders()
+            console.log(this.dynamicOrders)
+        }
     }
 </script>
 
