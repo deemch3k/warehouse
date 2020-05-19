@@ -15,7 +15,7 @@
 </template>
 
 <script>
-    import {mapGetters} from 'vuex'
+    import {mapState, mapGetters} from 'vuex'
     import OrderRow from "../order/OrderRow.vue";
 
     export default {
@@ -24,6 +24,7 @@
             OrderRow,
         },
         computed: {
+            ...mapState(['profile', 'orders']),
             ...mapGetters(['myPendingOrders'])
         },
     }

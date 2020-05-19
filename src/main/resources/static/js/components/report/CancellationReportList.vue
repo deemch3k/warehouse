@@ -4,15 +4,9 @@
              :key="report.id"
              class="ma-5"
         >
-            Order ID: {{report.orderId}}
-            <div v-if="isOrderByIdExist(report.orderId)">
-                This Order Exist
-            </div>
-            <div v-else>
-                This Order doesn't exist
-            </div>
+           Order ID: {{report.orderId}}
             <v-col></v-col>
-            Reason for Cancellation: {{report.reasonForCancellation}}
+           Reason for Cancellation: {{report.reasonForCancellation}}
             <v-divider></v-divider>
         </div>
     </v-container>
@@ -20,19 +14,12 @@
 
 <script>
 
-    import {mapGetters, mapState} from 'vuex'
+    import {mapGetters} from 'vuex'
 
     export default {
         name: 'CancellationReportList',
         computed: {
             ...mapGetters(['sortedReports']),
-            ...mapState(['orders'])
-        },
-        methods: {
-            isOrderByIdExist(orderId) {
-                const res = this.$store.state.orders.findIndex(item => orderId === item.id.toString())
-                return (res > -1)
-            }
         }
     }
 
