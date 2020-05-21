@@ -1,7 +1,7 @@
 <template>
     <v-dialog v-model="dialog" persistent max-width="600px">
         <template v-slot:activator="{ on }">
-            <v-btn color="primary" dark small v-on="on">Choose order</v-btn>
+            <v-btn color="primary" dark small v-on="on" @click="bindOrder(order)">Choose order</v-btn>
         </template>
         <v-card>
             <v-card-title>
@@ -54,7 +54,7 @@
             <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
-                <v-btn color="blue darken-1" text @click="bindOrder(order)">Save</v-btn>
+                <v-btn color="blue darken-1" text @click="saveChanges(order)">Save</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
@@ -81,20 +81,24 @@
         },
         methods: {
             ...mapActions(['updateOrderAction', 'cancellationOrderAction']),
-            bindOrder() {
-                if (this.order.user == null) {
-                    this.order.status = this.status
-                    if (this.status === 'CANCELED') {
-                        var cancellationReportDto = {
-                            orderId: this.order.id,
-                            reasonForCancellation: this.reasonForCancellation
-                        }
-                        this.cancellationOrderAction(cancellationReportDto)
-                    }
-                    this.order.user = this.profile
-                    this.updateOrderAction(this.order)
-                    this.dialog = false
+            bindOrder(order){
+                order.user = this.profile
+                this.$router.push("/profile")
+            },
+            saveChanges(order) {
+                if (this.status === 'PENDING'){
+                    this.$router.push("/profile")
                 }
+                    order.status = this.status
+                if (this.status === 'CANCELED') {
+                    var cancellationReportDto = {
+                        orderId: order.id,
+                        reasonForCancellation: this.reasonForCancellation
+                    }
+                    this.cancellationOrderAction(cancellationReportDto)
+                }
+                this.updateOrderAction(order)
+                this.dialog = false
             },
         }
 

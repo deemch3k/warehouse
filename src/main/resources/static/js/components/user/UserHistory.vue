@@ -7,6 +7,7 @@
                         v-for="order in historyOrders"
                         :key="order.id"
                         :order="order"
+                        :history="true"
                 >
                 </order-row>
             </v-flex>
