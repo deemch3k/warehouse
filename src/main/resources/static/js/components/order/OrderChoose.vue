@@ -81,8 +81,9 @@
         },
         methods: {
             ...mapActions(['updateOrderAction', 'cancellationOrderAction']),
-            bindOrder(order){
-                order.user = this.profile
+            bindOrder(){
+                this.order.user = this.profile
+                this.updateOrderAction(this.order)
                 this.$router.push("/profile")
             },
             saveChanges(order) {
