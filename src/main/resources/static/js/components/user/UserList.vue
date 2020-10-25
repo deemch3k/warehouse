@@ -1,5 +1,5 @@
 <template>
-    <v-container v-if="profile.role==='ADMIN'" class="my-5">
+    <v-container class="my-5">
         <v-layout row wrap>
             <v-flex sx6 align-self-start>
                 <v-btn block top class="primary pa-2 ma-5">Users</v-btn>
