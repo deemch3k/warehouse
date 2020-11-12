@@ -38,7 +38,10 @@ export default new Vuex.Store({
                     selectedStatus.includes(o.status))
             }
         },
-        sortedReports: state => state.reports.sort((a, b) => -(a.id - b.id))
+        sortedReports: state => state.reports.sort((a, b) => -(a.id - b.id)),
+        shippedOrders: state => state.orders.filter(o =>
+            o.user !== null &&
+            o.status === 'COMPLETED'),
     },
     mutations: {
         addProductMutation(state, product) {

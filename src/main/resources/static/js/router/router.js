@@ -8,6 +8,7 @@ import UserHistory from "../components/user/UserHistory.vue";
 import Profile from "../components/profile/Profile.vue";
 import OrderForm from "../components/order/OrderForm.vue";
 import CancellationReportList from "../components/report/CancellationReportList.vue";
+import ShippedOrders from "../components/report/ShippedOrders.vue";
 
 Vue.use(VueRouter)
 
@@ -20,6 +21,7 @@ const routes = [
     {path:'/user-history', component: UserHistory},
     {path:'/profile', component: Profile},
     {path:'/cancellation-reports', component: CancellationReportList},
+    {path:'/shipped-orders', component: ShippedOrders},
     {path:'*', component: OrderList}
 ]
 

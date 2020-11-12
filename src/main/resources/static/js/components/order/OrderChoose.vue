@@ -97,6 +97,8 @@
                         reasonForCancellation: this.reasonForCancellation
                     }
                     this.cancellationOrderAction(cancellationReportDto)
+                } else if (this.status === 'COMPLETED'){
+                  order.shippingDate = new Date().toISOString().substr(0, 10);
                 }
                 this.updateOrderAction(order)
                 this.dialog = false

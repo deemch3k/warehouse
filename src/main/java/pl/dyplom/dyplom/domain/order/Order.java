@@ -21,6 +21,7 @@ public class Order {
     private Long id;
 
     private String status;
+    private String shippingDate;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<ProductQuantity> productQuantities = new HashSet<>();

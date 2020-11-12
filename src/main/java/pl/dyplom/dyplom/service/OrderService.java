@@ -34,12 +34,14 @@ public class OrderService {
         orderFromDB.getProductQuantities().addAll(order.getProductQuantities());
         orderFromDB.setStatus(order.getStatus());
         orderFromDB.setUser(order.getUser());
+        orderFromDB.setShippingDate(order.getShippingDate());
         return orderRepo.save(orderFromDB);
     }
 
     public void delete(Order order) {
         productService.updateProducts(order.getProductQuantities(),"DELETE");
         orderRepo.delete(order);
+
 
     }
 
