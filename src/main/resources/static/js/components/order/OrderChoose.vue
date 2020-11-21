@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" persistent max-width="600px">
     <template v-slot:activator="{ on }">
-      <v-btn color="primary" dark small v-on="on" @click="bindOrder(order)">Choose order</v-btn>
+      <v-btn v-if="order.status !== 'CANCELED' && order.status !== 'COMPLETED'" color="primary" dark small v-on="on" @click="bindOrder(order)">Choose order</v-btn>
     </template>
     <v-card>
       <v-card-title>
