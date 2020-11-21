@@ -19,5 +19,6 @@ public class CancellationReport {
 
     private String orderId;
     private String reasonForCancellation;
+    private String dateOfCancellation;
 
 }

@@ -42,6 +42,9 @@ export default new Vuex.Store({
         shippedOrders: state => state.orders.filter(o =>
             o.user !== null &&
             o.status === 'COMPLETED'),
+        canceledOrders: state => state.orders.filter(o =>
+            o.user !== null &&
+            o.status === 'CANCELED'),
     },
     mutations: {
         addProductMutation(state, product) {
