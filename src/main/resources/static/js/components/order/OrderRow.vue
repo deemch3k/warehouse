@@ -25,7 +25,6 @@
                                 Delete order
                             </v-btn>
                             <order-choose
-                                    v-if="!history"
                                     :order="order"
                             ></order-choose>
                         </v-flex>
@@ -42,7 +41,7 @@
 
     export default {
         name: "OrderRow",
-        props: ['order', 'history'],
+        props: ['order'],
         components: {
             OrderChoose
         },
