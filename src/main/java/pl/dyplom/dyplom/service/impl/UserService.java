@@ -1,4 +1,4 @@
-package pl.dyplom.dyplom.service;
+package pl.dyplom.dyplom.service.impl;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

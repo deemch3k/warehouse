@@ -8,6 +8,7 @@ import pl.dyplom.dyplom.domain.order.Order;
 import pl.dyplom.dyplom.domain.User;
 import pl.dyplom.dyplom.dto.OrderDto;
 import pl.dyplom.dyplom.service.OrderService;
+import pl.dyplom.dyplom.service.impl.OrderServiceImpl;
 
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class OrderController {
 
     @GetMapping
     public List<Order> getList() {
-        return orderService.getList();
+        return orderService.getAllOrders();
     }
 
     @PostMapping
