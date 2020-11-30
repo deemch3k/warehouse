@@ -2,9 +2,9 @@ package pl.dyplom.dyplom.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.dyplom.dyplom.domain.User;
 import pl.dyplom.dyplom.domain.order.CancellationReport;
 import pl.dyplom.dyplom.domain.order.Order;
-import pl.dyplom.dyplom.domain.User;
 import pl.dyplom.dyplom.dto.OrderDto;
 import pl.dyplom.dyplom.repo.CancellationReportRepo;
 import pl.dyplom.dyplom.repo.OrderRepo;
@@ -41,7 +41,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     public void delete(Order order) {
-        productService.updateProducts(order.getProductQuantities(),"DELETE");
+        productService.updateProducts(order.getProductQuantities(), "DELETE");
         orderRepo.delete(order);
 
 
@@ -61,10 +61,11 @@ public class OrderServiceImpl implements OrderService {
         return orderRepo.save(order);
     }
 
-    public void cancelOrder(CancellationReport cr){
+    public void cancelOrder(CancellationReport cr) {
         cancellationReportRepo.save(cr);
     }
-    public List<CancellationReport> getReportsList(){
-       return cancellationReportRepo.findAll();
+
+    public List<CancellationReport> getReportsList() {
+        return cancellationReportRepo.findAll();
     }
 }

@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pl.dyplom.dyplom.domain.Product;
 import pl.dyplom.dyplom.service.ProductService;
-import pl.dyplom.dyplom.service.impl.ProductServiceImpl;
 
 import java.util.List;
 

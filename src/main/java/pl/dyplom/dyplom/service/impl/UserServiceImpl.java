@@ -8,16 +8,17 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import pl.dyplom.dyplom.domain.User;
 import pl.dyplom.dyplom.repo.UserRepo;
+import pl.dyplom.dyplom.service.UserService;
 
 import java.util.List;
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserServiceImpl implements UserDetailsService, UserService {
 
     private final UserRepo userRepo;
 
     @Autowired
-    public UserService(UserRepo userDetailsRepo) {
+    public UserServiceImpl(UserRepo userDetailsRepo) {
         this.userRepo = userDetailsRepo;
     }
 

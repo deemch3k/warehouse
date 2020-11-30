@@ -3,7 +3,7 @@ package pl.dyplom.dyplom.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pl.dyplom.dyplom.domain.User;
-import pl.dyplom.dyplom.service.impl.UserService;
+import pl.dyplom.dyplom.service.UserService;
 
 import java.util.List;
 
