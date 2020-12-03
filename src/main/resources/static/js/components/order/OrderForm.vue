@@ -1,14 +1,5 @@
 <template>
     <v-container fluid class="my-5">
-        <v-alert
-                :value="clientInfoError"
-                class="ma-4"
-                dense
-                outlined
-                type="error"
-        >
-            You need to fill <strong>Client Info</strong> form
-        </v-alert>
         <v-container fluid>
             <v-btn large right color="primary" class="float-right ml-10 pa-2" @click="createOrder">Create order</v-btn>
                 <v-alert
@@ -107,7 +98,6 @@
                 loading: false,
                 list: null,
                 clientInfo: null,
-                clientInfoError: false,
                 attachUser: false,
                 isCreated: false
             }
@@ -174,8 +164,6 @@
                     this.selectedProducts = []
                     this.clientInfo = null
                     this.isCreated = true
-                } else {
-                    this.clientInfoError = true
                 }
             },
             setClientInfo(clientInfo) {

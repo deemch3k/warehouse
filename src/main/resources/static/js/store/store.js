@@ -45,7 +45,10 @@ export default new Vuex.Store({
         canceledOrders: state => state.orders.filter(o =>
             o.user !== null &&
             o.status === 'CANCELED'),
+        admins : state => state.users.filter(u => u.role === 'ADMIN'),
+        users: state => state.users.filter(u => u.role === 'USER'),
     },
+
     mutations: {
         addProductMutation(state, product) {
             state.products = [
@@ -172,8 +175,8 @@ export default new Vuex.Store({
             }
         },
         async cancellationOrderAction({commit}, cancellationReportDto) {
-           const result = await orderApi.cancelOrder(cancellationReportDto)
-            if(result.ok){
+            const result = await orderApi.cancelOrder(cancellationReportDto)
+            if (result.ok) {
                 commit('cancellationOrderMutation', cancellationReportDto)
             }
         }

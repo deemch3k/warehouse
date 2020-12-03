@@ -6,7 +6,8 @@
                     :counter="50"
                     label="Name"
                     required
-            ></v-text-field>
+            >
+            </v-text-field>
             <v-text-field
                     v-model="price"
                     label="price"
