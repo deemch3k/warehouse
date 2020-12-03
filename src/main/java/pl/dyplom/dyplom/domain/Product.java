@@ -25,4 +25,5 @@ public class Product {
     private String placement;
     private String expirationDate;
 
+
 }

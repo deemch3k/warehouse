@@ -3,6 +3,7 @@ package pl.dyplom.dyplom.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,12 +25,14 @@ public class MainController {
     private final ProductService productService;
     private final OrderService orderService;
     private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public MainController(ProductService productService, OrderService orderService, UserService userService) {
+    public MainController(ProductService productService, OrderService orderService, UserService userService, PasswordEncoder passwordEncoder) {
         this.productService = productService;
         this.orderService = orderService;
         this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping
