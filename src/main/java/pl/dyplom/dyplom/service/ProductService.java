@@ -1,5 +1,6 @@
 package pl.dyplom.dyplom.service;
 
+import org.springframework.web.multipart.MultipartFile;
 import pl.dyplom.dyplom.domain.Product;
 import pl.dyplom.dyplom.domain.ProductQuantity;
 
@@ -14,5 +15,7 @@ public interface ProductService {
     Product update(Product productFromDb, Product product);
     List<Product> getList();
     void updateProducts(Set<ProductQuantity> productQuantities, String action);
+
+    void saveProductsFromFile(MultipartFile multipartFile);
 
 }

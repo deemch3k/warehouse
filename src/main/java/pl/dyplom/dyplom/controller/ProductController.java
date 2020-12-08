@@ -2,10 +2,12 @@ package pl.dyplom.dyplom.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import pl.dyplom.dyplom.domain.Product;
 import pl.dyplom.dyplom.service.ProductService;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/product")
@@ -42,6 +44,11 @@ public class ProductController {
     @DeleteMapping("{id}")
     public void delete(@PathVariable("id") Product product) {
         productService.delete(product);
+    }
+
+    @PostMapping("/import")
+    public void importProductsFromXmlFile(@RequestPart("xmlFile") MultipartFile multipartFile) {
+        productService.saveProductsFromFile(multipartFile);
     }
 
 }
