@@ -10,7 +10,6 @@
                     <v-list-item-content>
                         <div class="overline mb-4">ID: {{ product.id }}</div>
                         <v-list-item-title class="headline mb-1">{{product.name}}</v-list-item-title>
-                        <v-list-item-subtitle>PRICE: {{ product.price }}</v-list-item-subtitle>
                         <v-list-item-subtitle>Total Amount: {{ product.totalAmount }}</v-list-item-subtitle>
                         <v-list-item-subtitle>Description: {{ product.description }}</v-list-item-subtitle>
                         <v-list-item-subtitle>Placement: {{ product.placement }}</v-list-item-subtitle>

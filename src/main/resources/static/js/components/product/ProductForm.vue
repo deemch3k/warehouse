@@ -26,11 +26,6 @@
       >
       </v-text-field>
       <v-text-field
-          v-model="price"
-          label="price"
-          required
-      ></v-text-field>
-      <v-text-field
           v-model="totalAmount"
           label="Total Amount"
           required
@@ -111,7 +106,6 @@ export default {
   data() {
     return {
       name: '',
-      price: '',
       totalAmount: '',
       id: '',
       description: '',
@@ -128,7 +122,6 @@ export default {
     productAttr(newVal, oldVal) {
       this.name = newVal.name;
       this.totalAmount = newVal.totalAmount;
-      this.price = newVal.price;
       this.id = newVal.id;
       this.description = newVal.description;
       this.placement = newVal.placement;
@@ -143,7 +136,6 @@ export default {
         name: this.name,
         description: this.description,
         totalAmount: this.totalAmount,
-        price: this.price,
         placement: this.placement,
         expirationDate: this.expirationDate
       };
@@ -161,7 +153,6 @@ export default {
     },
     clear() {
       this.name = ''
-      this.price = ''
       this.description = ''
       this.totalAmount = ''
       this.placement = ''

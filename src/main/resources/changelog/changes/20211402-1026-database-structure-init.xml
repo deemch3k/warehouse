@@ -5,12 +5,12 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
     <changeSet id="1" author="dimaponiatovskyi">
-        <createTable tableName="user">
+        <createTable tableName="usr">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="username" type="varchar(50)"/>
-            <column name="password" type="varchar(50)"/>
+            <column name="password" type="varchar(150)"/>
             <column name="role" type="varchar(50)"/>
         </createTable>
 
@@ -46,6 +46,7 @@
             <column name="number" type="varchar(50)"/>
             <column name="postcode" type="varchar(50)"/>
         </createTable>
+
         <createTable tableName="product_quantity">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
@@ -55,7 +56,8 @@
                 <constraints references="ordered_product(id)" foreignKeyName="fk_ordered_product"/>
             </column>
         </createTable>
-        <createTable tableName="order">
+
+        <createTable tableName="orders">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -67,10 +69,31 @@
             <column type="bigint" name="client_info_id">
                 <constraints references="client_info(id)" foreignKeyName="fk_client_info"/>
             </column>
-            <column type="bigint" name="user_id">
-                <constraints references="user(id)" foreignKeyName="fk_user"/>
+            <column type="bigint" name="usr_id">
+                <constraints references="usr(id)" foreignKeyName="fk_usr"/>
             </column>
         </createTable>
+
+        <createTable tableName="cancellation_report">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="date_of_cancellation" type="date" />
+            <column name="reason_for_cancellation" type="varchar(100)" />
+            <column name="order_id" type="bigint">
+                <constraints references="orders(id)" foreignKeyName="fk_orders" />
+            </column>
+        </createTable>
+        
+        <createTable tableName="orders_product_quantities">
+            <column name="order_id" type="bigint">
+                <constraints references="orders(id)" foreignKeyName="fk_orders" />
+            </column>
+            <column name="product_quantities_id" type="bigint">
+                <constraints references="product_quantity(id)" foreignKeyName="fk_product_quantity" />
+            </column>
+        </createTable>
+
     </changeSet>
 </databaseChangeLog>
 
