@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-const users = Vue.resource('/user{/id}')
+const users = Vue.resource('/users{/id}')
 
 export default {
     add: user => users.save({}, user),

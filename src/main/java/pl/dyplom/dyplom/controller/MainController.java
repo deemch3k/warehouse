@@ -14,6 +14,7 @@ import pl.dyplom.dyplom.service.ProductService;
 import pl.dyplom.dyplom.service.UserService;
 
 import java.util.HashMap;
+import java.util.TreeMap;
 
 @Controller
 @RequestMapping("/")
@@ -25,20 +26,17 @@ public class MainController {
     private final ProductService productService;
     private final OrderService orderService;
     private final UserService userService;
-    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public MainController(ProductService productService, OrderService orderService, UserService userService, PasswordEncoder passwordEncoder) {
+    public MainController(ProductService productService, OrderService orderService, UserService userService) {
         this.productService = productService;
         this.orderService = orderService;
         this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping
     public String main(Model model, @AuthenticationPrincipal User user) {
         HashMap<Object, Object> data = new HashMap<>();
-
         if (user != null) {
             data.put("profile", user);
             data.put("products", productService.getList());

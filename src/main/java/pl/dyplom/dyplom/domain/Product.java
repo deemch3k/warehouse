@@ -1,11 +1,13 @@
 package pl.dyplom.dyplom.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table
@@ -20,10 +22,15 @@ public class Product {
 
     private String name;
     private String description;
+
+    @Column(name = "total_amount")
     private int totalAmount;
     private double price;
     private String placement;
-    private String expirationDate;
+
+    @Column(name = "expiration_date")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate expirationDate;
 
 
 }

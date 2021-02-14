@@ -14,6 +14,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -41,7 +42,7 @@ public class ProductsXmlParser implements XmlParser {
                 Product product = new Product();
                 product.setName(e.getElementsByTagName("name").item(0).getTextContent());
                 product.setDescription(e.getElementsByTagName("description").item(0).getTextContent());
-                product.setExpirationDate(e.getElementsByTagName("expirationDate").item(0).getTextContent());
+                product.setExpirationDate(LocalDate.parse(e.getElementsByTagName("expirationDate").item(0).getTextContent()));
                 product.setTotalAmount(Integer.parseInt(e.getElementsByTagName("totalAmount").item(0).getTextContent()));
                 product.setPrice(Double.parseDouble(e.getElementsByTagName("price").item(0).getTextContent()));
 

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet id="1" author="dimaponiatovskyi">
+        <createTable tableName="user">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="username" type="varchar(50)"/>
+            <column name="password" type="varchar(50)"/>
+            <column name="role" type="varchar(50)"/>
+        </createTable>
+
+        <createTable tableName="product">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)"/>
+            <column name="description" type="varchar(50)"/>
+            <column name="total_amount" type="int"/>
+            <column name="placement" type="varchar(50)"/>
+            <column name="expiration_date" type="date"/>
+        </createTable>
+
+        <createTable tableName="ordered_product">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)"/>
+            <column name="description" type="varchar(50)"/>
+            <column name="total_amount" type="int"/>
+            <column name="placement" type="varchar(50)"/>
+            <column name="expiration_date" type="date"/>
+        </createTable>
+
+        <createTable tableName="client_info">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)"/>
+            <column name="surname" type="varchar(50)"/>
+            <column name="address" type="varchar(50)"/>
+            <column name="number" type="varchar(50)"/>
+            <column name="postcode" type="varchar(50)"/>
+        </createTable>
+        <createTable tableName="product_quantity">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="qty" type="int"/>
+            <column type="bigint" name="ordered_product_id">
+                <constraints references="ordered_product(id)" foreignKeyName="fk_ordered_product"/>
+            </column>
+        </createTable>
+        <createTable tableName="order">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="status" type="varchar(50)"/>
+            <column name="shipping_date" type="date"/>
+            <column type="bigint" name="product_quantity_id">
+                <constraints references="product_quantity(id)" foreignKeyName="fk_product_quantity"/>
+            </column>
+            <column type="bigint" name="client_info_id">
+                <constraints references="client_info(id)" foreignKeyName="fk_client_info"/>
+            </column>
+            <column type="bigint" name="user_id">
+                <constraints references="user(id)" foreignKeyName="fk_user"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

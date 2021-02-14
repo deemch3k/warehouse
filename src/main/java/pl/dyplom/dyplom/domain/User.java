@@ -28,12 +28,12 @@ public class User implements UserDetails {
     private String username;
     private String password;
 
-    private String role;
+    private UserRole role;
 
     @Override
     @JsonDeserialize(using = CustomAuthorityDeserializer.class)
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority(role));
+        return Collections.singleton(new SimpleGrantedAuthority(role.toString()));
     }
 
     @Override

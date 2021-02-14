@@ -22,14 +22,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/login/**", "/js/**", "/error**", "/user")
+                .antMatchers("/login/**", "/js/**", "/error**")
                 .permitAll()
                 .anyRequest().authenticated()
                 .and()

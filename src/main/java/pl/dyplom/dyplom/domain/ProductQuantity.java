@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table
+@Table(name = "product_quantity")
 public class ProductQuantity {
 
     @Id

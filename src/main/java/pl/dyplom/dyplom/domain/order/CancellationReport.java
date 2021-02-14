@@ -17,7 +17,10 @@ public class CancellationReport {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String orderId;
+    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id")
+    private Order order;
+
     private String reasonForCancellation;
     private String dateOfCancellation;
 

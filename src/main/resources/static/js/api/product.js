@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-const products = Vue.resource('/product{/id}')
+const products = Vue.resource('/products{/id}')
 
 export default {
     add: product => products.save({}, product),

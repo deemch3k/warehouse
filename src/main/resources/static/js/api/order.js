@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-const orders = Vue.resource('/order{/id}')
+const orders = Vue.resource('/orders{/id}')
 
 export default {
     add: orderDto => orders.save({}, orderDto),

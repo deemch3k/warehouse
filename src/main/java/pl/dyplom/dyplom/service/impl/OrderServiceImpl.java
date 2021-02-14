@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.dyplom.dyplom.domain.User;
 import pl.dyplom.dyplom.domain.order.CancellationReport;
 import pl.dyplom.dyplom.domain.order.Order;
+import pl.dyplom.dyplom.domain.order.OrderStatus;
 import pl.dyplom.dyplom.dto.OrderDto;
 import pl.dyplom.dyplom.repo.CancellationReportRepo;
 import pl.dyplom.dyplom.repo.OrderRepo;
@@ -53,7 +54,7 @@ public class OrderServiceImpl implements OrderService {
         orderDto.getOrderedProducts().stream().forEach(pr -> pr.getOrderedProduct().setId(null));
         order.setProductQuantities(orderDto.getOrderedProducts());
         order.setClientInfo(orderDto.getClientInfo());
-        order.setStatus("PENDING");
+        order.setStatus(OrderStatus.PENDING);
         if (user != null && orderDto.getUser() != null) {
             order.setUser(user);
         }
